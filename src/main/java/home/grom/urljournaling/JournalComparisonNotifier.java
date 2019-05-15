@@ -33,5 +33,8 @@ public final class JournalComparisonNotifier {
             throw new IllegalArgumentException("Fullname is supposed to not reference to null or be empty");
         }
 
+        if ( null == mailer ){
+            throw new IllegalArgumentException("Referencing Mailer to null is not allowed");
+        }
     }
 }
