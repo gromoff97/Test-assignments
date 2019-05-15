@@ -20,7 +20,15 @@ public final class JournalComparisonNotifier {
     }
 
     private static Set getDisappearedURLs(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal){
-        return null;
+        Set resultSet = yesterdayJournal.getVisitedURLSet();
+        Set todayURLs = todayJournal.getVisitedURLSet();
+
+        if ( todayJournal.isEmpty() ) {
+            return resultSet;
+        }
+
+        resultSet.removeAll(todayURLs);
+        return resultSet;
     }
 
     private static String createForm(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal, final String fullName){
