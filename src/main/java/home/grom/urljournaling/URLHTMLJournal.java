@@ -60,7 +60,13 @@ public class URLHTMLJournal  {
         if ( isInvalidURL(url) ){
             throw new IllegalArgumentException("URL address is supposed to be valid");
         }
-        return null;
+
+        Document resultDoc = this.workingMap.get(url);
+        if ( null == resultDoc ) {
+            return null;
+        }
+
+        return resultDoc.outerHtml();
     }
 
     public int getSize(){
