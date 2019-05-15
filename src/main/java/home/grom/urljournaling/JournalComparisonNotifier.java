@@ -7,6 +7,13 @@ public final class JournalComparisonNotifier {
 
     private JournalComparisonNotifier(){}
 
+    private static boolean isValidEmailAddress(final String email){
+        if ( null == email ) {
+            throw new IllegalArgumentException("Email address is not supposed to reference to null");
+        }
+        return email.matches(emailRegex);
+    }
+
     public void sendComparisonResults(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal,
                                       final String emailAddress, final String fullName,
                                       Mailer mailer){
