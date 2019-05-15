@@ -55,7 +55,7 @@ public final class JournalComparisonNotifier {
         }
 
         resultSet.removeIf((urlKey)->
-            yesterdayJournal.getVisitedHTMLPage((String) urlKey).equals(yesterdayJournal.getVisitedHTMLPage((String) urlKey))
+            yesterdayJournal.getVisitedHTMLPage((String) urlKey).equals(todayJournal.getVisitedHTMLPage((String) urlKey))
         );
 
         return resultSet;
