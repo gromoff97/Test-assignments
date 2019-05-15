@@ -37,7 +37,8 @@ public class URLHTMLJournal  {
             return false;
         }
 
-        return false;
+        this.workingMap.put(newURL, newDoc);
+        return true;
     }
 
     public int getSize(){
