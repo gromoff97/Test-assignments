@@ -23,7 +23,7 @@ public class URLHTMLJournal  {
         return url.matches(URLRegex);
     }
 
-    /* retrieves HTML code using "JSoup" library */
+    /* adds Journal's entry using "JSoup" library */
     public boolean registerVisit( final String newURL ){
         if ( isInvalidURL(newURL) ){
             throw new IllegalArgumentException("URL address is supposed to be valid");
@@ -41,7 +41,7 @@ public class URLHTMLJournal  {
         return true;
     }
 
-    /* retrieves HTML code using method's second argument */
+    /* adds Journal's entry manually */
     public boolean registerVisit( final String newURL, final String HTMLContent ){
         if ( isInvalidURL(newURL) ){
             throw new IllegalArgumentException("URL address is supposed to be valid");
