@@ -15,12 +15,6 @@ public final class JournalComparisonNotifier {
     }
 
     private static String createForm(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal, final String fullName){
-        return "content";
-    }
-
-    public static void sendComparisonResults(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal,
-                                      final String emailAddress, final String fullName,
-                                      Mailer mailer){
         if ( null == yesterdayJournal || null == todayJournal ) {
             throw new IllegalArgumentException("Referencing any Journal to null is not allowed");
         }
@@ -29,12 +23,18 @@ public final class JournalComparisonNotifier {
             throw new IllegalArgumentException("Referencing Journals to each other is not allowed");
         }
 
-        if ( !isValidEmailAddress(emailAddress) ) {
-            throw new IllegalArgumentException("Email is supposed to be valid");
-        }
-
         if ( null == fullName || fullName.trim().isEmpty() ){
             throw new IllegalArgumentException("Fullname is supposed to not reference to null or be empty");
+        }
+
+        return "content";
+    }
+
+    public static void sendComparisonResults(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal,
+                                      final String emailAddress, final String fullName,
+                                      Mailer mailer){
+        if ( !isValidEmailAddress(emailAddress) ) {
+            throw new IllegalArgumentException("Email is supposed to be valid");
         }
 
         if ( null == mailer ){
