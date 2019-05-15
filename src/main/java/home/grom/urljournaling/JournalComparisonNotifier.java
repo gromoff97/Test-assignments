@@ -62,6 +62,10 @@ public final class JournalComparisonNotifier {
         return resultSet;
     }
 
+    private static String formatURLSet(final Set URLSet){
+        return null;
+    }
+
     private static String createForm(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal, final String fullName){
         if ( null == yesterdayJournal || null == todayJournal ) {
             throw new IllegalArgumentException("Referencing any Journal to null is not allowed");
