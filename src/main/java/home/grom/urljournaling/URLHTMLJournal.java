@@ -14,6 +14,10 @@ public class URLHTMLJournal  {
         this.workingMap = new HashMap<>();
     }
 
+    private static boolean isInvalidURL( final String url ){
+        return false;
+    }
+
     /* retrieves HTML code using "JSoup" library */
     public boolean registerVisit( final String newURL ){
         return false;
