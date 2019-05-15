@@ -25,5 +25,9 @@ public final class JournalComparisonNotifier {
             throw new IllegalArgumentException("Referencing Journals to each other is not allowed");
         }
 
+        if ( !isValidEmailAddress(emailAddress) ) {
+            throw new IllegalArgumentException("Email is supposed to be valid");
+        }
+
     }
 }
