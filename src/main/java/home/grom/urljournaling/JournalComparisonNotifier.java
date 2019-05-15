@@ -83,7 +83,18 @@ public final class JournalComparisonNotifier {
             throw new IllegalArgumentException("Fullname is supposed to not reference to null or be empty");
         }
 
-        return "content";
+        return String.format("Dear %s\n\n" +
+                        "Here is Journal changes occurred in 24 hours :\n" +
+                        "1. Following URLs disappeared : %s\n" +
+                        "2. Following URLs appeared : %s\n" +
+                        "3. Following URLs has changed its HTML-content : %s\n\n" +
+                        "Best Wishes,\n" +
+                        "Automatic Monitoring System\n",
+                fullName,
+                formatURLSet(getDisappearedURLs(yesterdayJournal,todayJournal)),
+                formatURLSet(getNewURLs(yesterdayJournal,todayJournal)),
+                formatURLSet(getHTMLModifiedURLs(yesterdayJournal,todayJournal))
+        );
     }
 
     public static void sendComparisonResults(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal,
