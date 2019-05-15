@@ -5,7 +5,9 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class URLHTMLJournal  {
     private Map<String, Document> workingMap;
@@ -67,6 +69,10 @@ public class URLHTMLJournal  {
         }
 
         return resultDoc.outerHtml();
+    }
+
+    public Set getVisitedURLSet(){
+        return new HashSet(this.workingMap.keySet());
     }
 
     public int getSize(){
