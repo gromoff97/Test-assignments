@@ -23,6 +23,9 @@ public class URLHTMLJournal  {
 
     /* retrieves HTML code using "JSoup" library */
     public boolean registerVisit( final String newURL ){
+        if ( isInvalidURL(newURL) ){
+            throw new IllegalArgumentException("URL address is supposed to be valid");
+        }
         return false;
     }
 
