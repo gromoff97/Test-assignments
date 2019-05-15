@@ -11,4 +11,8 @@ public class URLHTMLJournal  {
     public URLHTMLJournal() {
         this.workingMap = new HashMap<>();
     }
+
+    public int getSize(){
+        return this.workingMap.size();
+    }
 }
