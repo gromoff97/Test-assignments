@@ -56,6 +56,10 @@ public class URLHTMLJournal  {
         return true;
     }
 
+    public String getVisitedHTMLPage( final String url ){
+        return null;
+    }
+
     public int getSize(){
         return this.workingMap.size();
     }
