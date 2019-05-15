@@ -1,7 +1,9 @@
 package home.grom.urljournaling;
 
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +28,15 @@ public class URLHTMLJournal  {
         if ( isInvalidURL(newURL) ){
             throw new IllegalArgumentException("URL address is supposed to be valid");
         }
+
+        Document newDoc;
+        try {
+            newDoc = Jsoup.connect(newURL).maxBodySize(0).timeout(20_000).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
         return false;
     }
 
