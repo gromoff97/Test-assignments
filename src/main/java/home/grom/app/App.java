@@ -1,4 +1,4 @@
-package home.grom;
+package home.grom.app;
 
 /**
  * Hello world!
