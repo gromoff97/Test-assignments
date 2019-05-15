@@ -8,5 +8,7 @@ import java.util.Map;
 public class URLHTMLJournal  {
     private Map<String, Document> workingMap;
 
-    public URLHTMLJournal() { }
+    public URLHTMLJournal() {
+        this.workingMap = new HashMap<>();
+    }
 }
