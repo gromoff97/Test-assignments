@@ -46,6 +46,9 @@ public class URLHTMLJournal  {
         if ( isInvalidURL(newURL) ){
             throw new IllegalArgumentException("URL address is supposed to be valid");
         }
+        if ( null == HTMLContent || HTMLContent.trim().isEmpty() ){
+            throw new IllegalArgumentException("HTML content is supposed to be non-empty, at least");
+        }
         return false;
     }
 
