@@ -57,6 +57,9 @@ public class URLHTMLJournal  {
     }
 
     public String getVisitedHTMLPage( final String url ){
+        if ( isInvalidURL(url) ){
+            throw new IllegalArgumentException("URL address is supposed to be valid");
+        }
         return null;
     }
 
