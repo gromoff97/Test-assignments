@@ -15,4 +15,8 @@ public class URLHTMLJournal  {
     public int getSize(){
         return this.workingMap.size();
     }
+
+    public boolean isEmpty(){
+        return 0 == getSize();
+    }
 }
