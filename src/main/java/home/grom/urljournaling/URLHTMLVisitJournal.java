@@ -58,7 +58,7 @@ public class URLHTMLVisitJournal  {
         }
 
         if ( null == HTMLContent || HTMLContent.trim().isEmpty() ){
-            throw new IllegalArgumentException("HTML content is supposed to be non-empty, at least");
+            throw new IllegalArgumentException("HTML content has to be non-empty");
         }
 
         Document newDoc = Jsoup.parse(HTMLContent);

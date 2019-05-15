@@ -18,11 +18,11 @@ public final class JournalComparisonNotifier {
                                       final String emailAddress, final String fullName,
                                       Mailer mailer){
         if ( null == yesterdayJournal || null == todayJournal ) {
-            throw new IllegalArgumentException("Journals are supposed to not reference to null");
+            throw new IllegalArgumentException("Referencing any Journal to null is not allowed");
         }
 
         if ( yesterdayJournal == todayJournal ) {
-            throw new IllegalArgumentException("Journals are supposed to not reference to each other");
+            throw new IllegalArgumentException("Referencing Journals to each other is not allowed");
         }
 
     }
