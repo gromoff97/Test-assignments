@@ -4,7 +4,6 @@ import org.simplejavamail.email.Email;
 import org.simplejavamail.email.EmailBuilder;
 import org.simplejavamail.mailer.Mailer;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public final class JournalComparisonNotifier {
