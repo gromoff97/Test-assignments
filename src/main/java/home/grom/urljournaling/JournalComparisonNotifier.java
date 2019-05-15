@@ -43,8 +43,23 @@ public final class JournalComparisonNotifier {
         return resultSet;
     }
 
-    private Set getHTMLModifiedURLs(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal){
-        return null;
+    private static Set getHTMLModifiedURLs(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal){
+        Set resultSet = todayJournal.getVisitedURLSet();
+        Set yesterdayURLs = yesterdayJournal.getVisitedURLSet();
+
+        /* got interception of given journals */
+        resultSet.retainAll(yesterdayURLs);
+
+        /* no point to continue if following condition is true */
+        if ( resultSet.isEmpty() ) {
+            return resultSet;
+        }
+
+        resultSet.removeIf((urlKey)->
+            yesterdayJournal.getVisitedHTMLPage((String) urlKey).equals(yesterdayJournal.getVisitedHTMLPage((String) urlKey))
+        );
+
+        return resultSet;
     }
 
     private static String createForm(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal, final String fullName){
