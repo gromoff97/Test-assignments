@@ -8,6 +8,8 @@ import java.util.Map;
 public class URLHTMLJournal  {
     private Map<String, Document> workingMap;
 
+    private static final String URLRegex = "\"^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]\"";
+
     public URLHTMLJournal() {
         this.workingMap = new HashMap<>();
     }
