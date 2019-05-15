@@ -14,18 +14,24 @@ public class App
 {
     public static void main( String[] args )
     {
-        /* Suppose it's yesterday */
+        // Suppose it's yesterday
         firstUrlList.add("https://wiki.archlinux.org/");
         firstUrlList.add("https://www.google.com/");
-        firstUrlList.add("https://github.com/");
 
-        URLHTMLVisitJournal yesterdayJournal = new URLHTMLVisitJournal();
-        for (String url : firstUrlList){
-            if ( !yesterdayJournal.registerVisit(url)) {
-                System.err.println("Couldn't register following url : " + url);
-            }
-        }
-        /* custom registering */
+        /*
+        * It's available to create empty Journal but
+        * you may want to create it using List of Strings.
+        * */
+        URLHTMLVisitJournal yesterdayJournal = new URLHTMLVisitJournal(firstUrlList);
+
+        /*
+        * There are two ways to register the visit
+        */
+
+        // registering with help of Jsoup's connection methods
+        yesterdayJournal.registerVisit("https://github.com/");
+
+        // manual registering
         yesterdayJournal.registerVisit("http://mydearcustomsite.net/",oldHTMLCode);
 
         /* ----------------------------------- */
@@ -34,17 +40,23 @@ public class App
         secondUrlList.add("https://context.reverso.net/");
         secondUrlList.add("https://wiki.archlinux.org/");
         secondUrlList.add("http://www.redsys.ru/");
-        secondUrlList.add("https://dasdaasdadadda.com/"); /* it will cause exception but program will continue working */
 
-        URLHTMLVisitJournal todayJournal = new URLHTMLVisitJournal();
-        for (String url : secondUrlList ){
-            if ( !yesterdayJournal.registerVisit(url)) {
-                System.err.println("Couldn't register following url : " + url);
-            }
-        }
-        /* custom registering ( imitating modification of page )*/
+        /*
+         * it will cause *checked* exception during inner registering (i.e. inside constructor)
+         * but program will continue working anyway.
+         */
+        secondUrlList.add("https://dasdaasdadadda.com/");
+
+        // here it will be caused
+        URLHTMLVisitJournal todayJournal = new URLHTMLVisitJournal(secondUrlList);
+
+        // manual registering ( imitating modification of page )
         todayJournal.registerVisit("http://mydearcustomsite.net/",newHTMLCode);
 
+        /*
+         * Everyone has his own settings of mailing.
+         * That's why we need to create Mailer's instance before sending.
+         * */
         JournalComparisonNotifier.sendComparisonResults(
                 yesterdayJournal,todayJournal,
                 "gromoff97@mail.ru",
