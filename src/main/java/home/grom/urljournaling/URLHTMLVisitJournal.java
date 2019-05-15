@@ -4,10 +4,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class URLHTMLVisitJournal  {
     private Map<String, Document> workingMap;
@@ -16,6 +13,9 @@ public class URLHTMLVisitJournal  {
 
     public URLHTMLVisitJournal() {
         this.workingMap = new HashMap<>();
+    }
+    public URLHTMLVisitJournal(List<String> urlList){
+
     }
 
     private static boolean isInvalidURL( final String url ){
