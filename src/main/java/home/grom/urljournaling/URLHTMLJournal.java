@@ -12,6 +12,11 @@ public class URLHTMLJournal  {
         this.workingMap = new HashMap<>();
     }
 
+    /* retrieves HTML code using "JSoup" library */
+    public boolean registerVisit( final String newURL ){
+        return false;
+    }
+
     public int getSize(){
         return this.workingMap.size();
     }
