@@ -63,7 +63,11 @@ public final class JournalComparisonNotifier {
     }
 
     private static String formatURLSet(final Set URLSet){
-        return null;
+        if ( URLSet.isEmpty() ) {
+            return "--empty--";
+        }
+
+        return "{ " + String.join(" , ",URLSet) + " }";
     }
 
     private static String createForm(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal, final String fullName){
