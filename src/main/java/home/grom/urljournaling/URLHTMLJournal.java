@@ -84,7 +84,7 @@ public class URLHTMLJournal  {
     }
 
     public Set getVisitedURLSet(){
-        return new HashSet(this.workingMap.keySet());
+        return new HashSet<>(this.workingMap.keySet());
     }
 
     public int getSize(){
