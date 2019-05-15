@@ -41,6 +41,11 @@ public class URLHTMLJournal  {
         return true;
     }
 
+    /* retrieves HTML code using method's second argument */
+    public boolean registerVisit( final String newURL, final String HTMLContent ){
+        return false;
+    }
+
     public int getSize(){
         return this.workingMap.size();
     }
