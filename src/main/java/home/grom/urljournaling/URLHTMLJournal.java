@@ -15,7 +15,10 @@ public class URLHTMLJournal  {
     }
 
     private static boolean isInvalidURL( final String url ){
-        return false;
+        if ( null == url ){
+            throw new IllegalArgumentException("referencing URL to null is not allowed");
+        }
+        return url.matches(URLRegex);
     }
 
     /* retrieves HTML code using "JSoup" library */
