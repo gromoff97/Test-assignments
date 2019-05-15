@@ -29,16 +29,16 @@ public class URLHTMLVisitJournal  {
         }
     }
 
-    private static boolean isInvalidURL( final String url ){
+    private static boolean isValidURL( final String url ){
         if ( null == url ){
             throw new IllegalArgumentException("referencing URL to null is not allowed");
         }
-        return !url.matches(URLRegex);
+        return url.matches(URLRegex);
     }
 
     /* adds Journal's entry using "JSoup" library */
     public boolean registerVisit( final String newURL ){
-        if ( isInvalidURL(newURL) ){
+        if ( !isValidURL(newURL) ){
             throw new IllegalArgumentException("URL address is supposed to be valid");
         }
 
@@ -56,7 +56,7 @@ public class URLHTMLVisitJournal  {
 
     /* adds Journal's entry manually */
     public boolean registerVisit( final String newURL, final String HTMLContent ){
-        if ( isInvalidURL(newURL) ){
+        if ( !isValidURL(newURL) ){
             throw new IllegalArgumentException("URL address is supposed to be valid");
         }
 
@@ -70,7 +70,7 @@ public class URLHTMLVisitJournal  {
     }
 
     public String getVisitedHTMLPage( final String url ){
-        if ( isInvalidURL(url) ){
+        if ( !isValidURL(url) ){
             throw new IllegalArgumentException("URL address is supposed to be valid");
         }
 
