@@ -4,6 +4,9 @@ import org.simplejavamail.email.Email;
 import org.simplejavamail.email.EmailBuilder;
 import org.simplejavamail.mailer.Mailer;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public final class JournalComparisonNotifier {
     private final static String emailRegex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
 
@@ -14,6 +17,10 @@ public final class JournalComparisonNotifier {
             throw new IllegalArgumentException("Email address is not supposed to reference to null");
         }
         return email.matches(emailRegex);
+    }
+
+    private static Set getDisappearedURLs(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal){
+        return null;
     }
 
     private static String createForm(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal, final String fullName){
