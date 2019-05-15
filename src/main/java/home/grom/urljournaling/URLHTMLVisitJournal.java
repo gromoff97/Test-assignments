@@ -23,6 +23,10 @@ public class URLHTMLVisitJournal  {
         if ( URLList.isEmpty() ){
             return;
         }
+
+        for ( String url : URLList ){
+            this.registerVisit(url);
+        }
     }
 
     private static boolean isInvalidURL( final String url ){
