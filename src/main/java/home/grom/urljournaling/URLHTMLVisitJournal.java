@@ -5,6 +5,7 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class URLHTMLVisitJournal  {
     private Map<String, Document> workingMap;
@@ -12,14 +13,14 @@ public class URLHTMLVisitJournal  {
     private static final String URLRegex = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
     public URLHTMLVisitJournal() {
-        this.workingMap = new HashMap<>();
+        this.workingMap = new ConcurrentHashMap<>();
     }
     public URLHTMLVisitJournal( List<String> URLList ){
         if ( null == URLList ){
             throw new IllegalArgumentException("referencing List to null is not allowed");
         }
 
-        this.workingMap = new HashMap<>();
+        this.workingMap = new ConcurrentHashMap<>();
         if ( URLList.isEmpty() ){
             return;
         }
