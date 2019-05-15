@@ -29,5 +29,9 @@ public final class JournalComparisonNotifier {
             throw new IllegalArgumentException("Email is supposed to be valid");
         }
 
+        if ( null == fullName || fullName.trim().isEmpty() ){
+            throw new IllegalArgumentException("Fullname is supposed to not reference to null or be empty");
+        }
+
     }
 }
