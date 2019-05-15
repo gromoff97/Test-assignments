@@ -10,6 +10,13 @@ public final class JournalComparisonNotifier {
     public void sendComparisonResults(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal,
                                       final String emailAddress, final String fullName,
                                       Mailer mailer){
-        return;
+        if ( null == yesterdayJournal || null == todayJournal ) {
+            throw new IllegalArgumentException("Journals are supposed to not reference to null");
+        }
+
+        if ( yesterdayJournal == todayJournal ) {
+            throw new IllegalArgumentException("Journals are supposed to not reference to each other");
+        }
+
     }
 }
