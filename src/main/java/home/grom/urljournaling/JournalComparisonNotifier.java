@@ -13,7 +13,11 @@ public final class JournalComparisonNotifier {
         }
         return email.matches(emailRegex);
     }
-    
+
+    private static String createForm(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal, final String fullName){
+        return "content";
+    }
+
     public static void sendComparisonResults(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal,
                                       final String emailAddress, final String fullName,
                                       Mailer mailer){
