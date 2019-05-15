@@ -9,12 +9,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class URLHTMLJournal  {
+public class URLHTMLVisitJournal  {
     private Map<String, Document> workingMap;
 
     private static final String URLRegex = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
-    public URLHTMLJournal() {
+    public URLHTMLVisitJournal() {
         this.workingMap = new HashMap<>();
     }
 
