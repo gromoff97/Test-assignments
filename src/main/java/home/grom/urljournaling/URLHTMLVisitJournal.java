@@ -14,8 +14,10 @@ public class URLHTMLVisitJournal  {
     public URLHTMLVisitJournal() {
         this.workingMap = new HashMap<>();
     }
-    public URLHTMLVisitJournal(List<String> urlList){
-
+    public URLHTMLVisitJournal( List<String> urlList ){
+        if ( null == urlList ){
+            throw new IllegalArgumentException("referencing List to null is not allowed");
+        }
     }
 
     private static boolean isInvalidURL( final String url ){
