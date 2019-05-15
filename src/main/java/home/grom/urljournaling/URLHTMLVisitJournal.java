@@ -27,10 +27,6 @@ public class URLHTMLVisitJournal  {
 
     /* adds Journal's entry using "JSoup" library */
     public boolean registerVisit( final String newURL ){
-        if ( null == newURL ){
-            throw new IllegalArgumentException("referencing URL to null is not allowed");
-        }
-
         if ( isInvalidURL(newURL) ){
             throw new IllegalArgumentException("URL address is supposed to be valid");
         }
@@ -49,10 +45,6 @@ public class URLHTMLVisitJournal  {
 
     /* adds Journal's entry manually */
     public boolean registerVisit( final String newURL, final String HTMLContent ){
-        if ( null == newURL ){
-            throw new IllegalArgumentException("referencing URL to null is not allowed");
-        }
-
         if ( isInvalidURL(newURL) ){
             throw new IllegalArgumentException("URL address is supposed to be valid");
         }
@@ -67,10 +59,6 @@ public class URLHTMLVisitJournal  {
     }
 
     public String getVisitedHTMLPage( final String url ){
-        if ( null == url ){
-            throw new IllegalArgumentException("referencing URL to null is not allowed");
-        }
-
         if ( isInvalidURL(url) ){
             throw new IllegalArgumentException("URL address is supposed to be valid");
         }
