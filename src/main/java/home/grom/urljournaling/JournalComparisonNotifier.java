@@ -1,4 +1,4 @@
 package home.grom.urljournaling;
 
-public class JournalComparisonNotifier {
+public final class JournalComparisonNotifier {
 }
