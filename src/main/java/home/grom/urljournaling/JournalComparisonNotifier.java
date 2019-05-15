@@ -1,5 +1,7 @@
 package home.grom.urljournaling;
 
+import org.simplejavamail.email.Email;
+import org.simplejavamail.email.EmailBuilder;
 import org.simplejavamail.mailer.Mailer;
 
 public final class JournalComparisonNotifier {
@@ -40,5 +42,16 @@ public final class JournalComparisonNotifier {
         if ( null == mailer ){
             throw new IllegalArgumentException("Referencing Mailer to null is not allowed");
         }
+
+        String mailContent = createForm( yesterdayJournal, todayJournal, fullName );
+        Email email = EmailBuilder.startingBlank()
+                .from("Journal-comparison notifier", "notificationservice@redsys.net")
+                .to(fullName, emailAddress)
+                .withSubject("One more journal-comparison notifier's notification")
+                .withPlainText(mailContent)
+                .buildEmail();
+
+        mailer.sendMail(email);
+
     }
 }
