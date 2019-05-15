@@ -22,7 +22,7 @@ public class URLHTMLVisitJournal  {
         if ( null == url ){
             throw new IllegalArgumentException("referencing URL to null is not allowed");
         }
-        return url.matches(URLRegex);
+        return !url.matches(URLRegex);
     }
 
     /* adds Journal's entry using "JSoup" library */
