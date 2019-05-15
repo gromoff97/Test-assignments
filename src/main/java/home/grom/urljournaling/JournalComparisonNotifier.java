@@ -13,8 +13,8 @@ public final class JournalComparisonNotifier {
         }
         return email.matches(emailRegex);
     }
-
-    public void sendComparisonResults(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal,
+    
+    public static void sendComparisonResults(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal,
                                       final String emailAddress, final String fullName,
                                       Mailer mailer){
         if ( null == yesterdayJournal || null == todayJournal ) {
