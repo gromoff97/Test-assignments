@@ -29,9 +29,9 @@ public final class JournalComparisonNotifier {
     }
 
     // gets URLs which exist only in yesterday's Journal
-    private static Set getDisappearedURLs(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal){
-        Set resultSet = yesterdayJournal.getVisitedURLSet();
-        Set todayURLs = todayJournal.getVisitedURLSet();
+    private static Set<String> getDisappearedURLs(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal){
+        Set<String> resultSet = yesterdayJournal.getVisitedURLSet();
+        Set<String> todayURLs = todayJournal.getVisitedURLSet();
 
         if ( todayJournal.isEmpty() ) {
             return resultSet;
@@ -42,9 +42,9 @@ public final class JournalComparisonNotifier {
     }
 
     // gets URLs which exist only in today's Journal
-    private static Set getNewURLs(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal){
-        Set resultSet = todayJournal.getVisitedURLSet();
-        Set yesterdayURLs = yesterdayJournal.getVisitedURLSet();
+    private static Set<String> getNewURLs(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal){
+        Set<String> resultSet = todayJournal.getVisitedURLSet();
+        Set<String> yesterdayURLs = yesterdayJournal.getVisitedURLSet();
 
         if ( yesterdayJournal.isEmpty() ) {
             return resultSet;
@@ -55,9 +55,9 @@ public final class JournalComparisonNotifier {
     }
 
     // gets URLs which exist in both Journals, but HTMLContent was modificated in today's Journal
-    private static Set getHTMLModifiedURLs(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal){
-        Set resultSet = todayJournal.getVisitedURLSet();
-        Set yesterdayURLs = yesterdayJournal.getVisitedURLSet();
+    private static Set<String> getHTMLModifiedURLs(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal){
+        Set<String> resultSet = todayJournal.getVisitedURLSet();
+        Set<String> yesterdayURLs = yesterdayJournal.getVisitedURLSet();
 
         // got interception of given journals
         resultSet.retainAll(yesterdayURLs);
@@ -68,13 +68,13 @@ public final class JournalComparisonNotifier {
         }
 
         resultSet.removeIf((urlKey)->
-            yesterdayJournal.getVisitedHTMLPage((String) urlKey).equals(todayJournal.getVisitedHTMLPage((String) urlKey))
+            yesterdayJournal.getVisitedHTMLPage(urlKey).equals(todayJournal.getVisitedHTMLPage((String) urlKey))
         );
 
         return resultSet;
     }
 
-    private static String formatURLSet(final Set URLSet){
+    private static String formatURLSet(final Set<String> URLSet){
         if ( URLSet.isEmpty() ) {
             return "--empty--";
         }

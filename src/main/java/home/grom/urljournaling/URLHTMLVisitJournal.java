@@ -105,7 +105,7 @@ public class URLHTMLVisitJournal  {
         return resultDoc.outerHtml();
     }
 
-    public Set getVisitedURLSet(){
+    public Set<String> getVisitedURLSet(){
         return new HashSet<>(this.workingMap.keySet());
     }
 
