@@ -6,9 +6,19 @@ import org.simplejavamail.mailer.Mailer;
 
 import java.util.Set;
 
+/*
+ * This class provides only static method, and only one of them is public
+ * ( other methods are just "helpers" to this one )
+ * */
 public final class JournalComparisonNotifier {
+    // It could be better but IMO it seems good enough for attendance test
+    // Reference : https://howtodoinjava.com/regex/java-regex-validate-email-address/
     private final static String emailRegex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
 
+    /*
+     * This class won't need to create any instances
+     * because there are only static methods
+     * */
     private JournalComparisonNotifier(){}
 
     private static boolean isValidEmailAddress(final String email){
@@ -18,6 +28,7 @@ public final class JournalComparisonNotifier {
         return email.matches(emailRegex);
     }
 
+    // gets URLs which exist only in yesterday's Journal
     private static Set getDisappearedURLs(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal){
         Set resultSet = yesterdayJournal.getVisitedURLSet();
         Set todayURLs = todayJournal.getVisitedURLSet();
@@ -30,6 +41,7 @@ public final class JournalComparisonNotifier {
         return resultSet;
     }
 
+    // gets URLs which exist only in today's Journal
     private static Set getNewURLs(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal){
         Set resultSet = todayJournal.getVisitedURLSet();
         Set yesterdayURLs = yesterdayJournal.getVisitedURLSet();
@@ -42,14 +54,15 @@ public final class JournalComparisonNotifier {
         return resultSet;
     }
 
+    // gets URLs which exist in both Journals, but HTMLContent was modificated in today's Journal
     private static Set getHTMLModifiedURLs(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal){
         Set resultSet = todayJournal.getVisitedURLSet();
         Set yesterdayURLs = yesterdayJournal.getVisitedURLSet();
 
-        /* got interception of given journals */
+        // got interception of given journals
         resultSet.retainAll(yesterdayURLs);
 
-        /* no point to continue if following condition is true */
+        // no point to continue if following condition is true
         if ( resultSet.isEmpty() ) {
             return resultSet;
         }
