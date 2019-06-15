@@ -34,19 +34,19 @@ public class URLHTMLVisitJournal  {
         this.workingMap = new ConcurrentHashMap<>();
     }
 
-    public URLHTMLVisitJournal( List<String> URLList ){
-        if ( null == URLList ){
-            throw new IllegalArgumentException("referencing List to null is not allowed");
+    public URLHTMLVisitJournal( Set<String> URLSet ){
+        if ( null == URLSet ){
+            throw new IllegalArgumentException("referencing Set of urls to null is not allowed");
         }
 
         this.workingMap = new ConcurrentHashMap<>();
 
-        // "Empty List" means "Empty Map"
-        if ( URLList.isEmpty() ){
+        // "Empty Set" means "Empty Map"
+        if ( URLSet.isEmpty() ){
             return;
         }
 
-        for ( String url : URLList ){
+        for ( String url : URLSet ){
             this.registerVisit(url);
         }
     }

@@ -7,7 +7,9 @@ import org.simplejavamail.mailer.MailerBuilder;
 import org.simplejavamail.mailer.config.TransportStrategy;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /* Just a demonstration */
 public class App 
@@ -15,14 +17,14 @@ public class App
     public static void main( String[] args )
     {
         // Suppose it's yesterday
-        firstUrlList.add("https://wiki.archlinux.org/");
-        firstUrlList.add("https://www.google.com/");
+        firstUrlSet.add("https://wiki.archlinux.org/");
+        firstUrlSet.add("https://www.google.com/");
 
         /*
         * It's available to create empty Journal but
         * you may want to create it using List of Strings.
         * */
-        URLHTMLVisitJournal yesterdayJournal = new URLHTMLVisitJournal(firstUrlList);
+        URLHTMLVisitJournal yesterdayJournal = new URLHTMLVisitJournal(firstUrlSet);
 
         /*
         * There are two ways to register the visit
@@ -37,18 +39,18 @@ public class App
         /* ----------------------------------- */
 
         /* Suppose it's today */
-        secondUrlList.add("https://context.reverso.net/");
-        secondUrlList.add("https://wiki.archlinux.org/");
-        secondUrlList.add("http://www.redsys.ru/");
+        secondUrlSet.add("https://context.reverso.net/");
+        secondUrlSet.add("https://wiki.archlinux.org/");
+        secondUrlSet.add("http://www.redsys.ru/");
 
         /*
          * it will cause *checked* exception during inner registering (i.e. inside constructor)
          * but program will continue working anyway.
          */
-        secondUrlList.add("https://dasdaasdadadda.com/");
+        secondUrlSet.add("https://dasdaasdadadda.com/");
 
         // here it will be caused
-        URLHTMLVisitJournal todayJournal = new URLHTMLVisitJournal(secondUrlList);
+        URLHTMLVisitJournal todayJournal = new URLHTMLVisitJournal(secondUrlSet);
 
         // manual registering ( imitating modification of page )
         todayJournal.registerVisit("http://mydearcustomsite.net/",newHTMLCode);
@@ -65,8 +67,8 @@ public class App
         );
     }
 
-    private static List<String> firstUrlList = new ArrayList<>();
-    private static List<String> secondUrlList = new ArrayList<>();
+    private static Set<String> firstUrlSet = new HashSet<>();
+    private static Set<String> secondUrlSet = new HashSet<>();
 
     private final static String oldHTMLCode =
             "<!doctype html>\n" +
