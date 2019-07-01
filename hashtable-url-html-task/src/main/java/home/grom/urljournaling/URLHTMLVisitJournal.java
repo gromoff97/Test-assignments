@@ -38,7 +38,7 @@ public class URLHTMLVisitJournal  {
 
     public URLHTMLVisitJournal( Set<String> URLSet ){
         if ( null == URLSet ){
-            throw new IllegalArgumentException("referencing Set of urls to null is not allowed");
+            throw new IllegalArgumentException("Referencing Set of urls to non-null instance is required.");
         }
 
         this.journalData = new ConcurrentHashMap<>();
@@ -55,7 +55,7 @@ public class URLHTMLVisitJournal  {
 
     private static boolean isValidURL( final String url ){
         if ( null == url ){
-            throw new IllegalArgumentException("referencing URL to null is not allowed");
+            throw new IllegalArgumentException("Referencing URL to non-null instance is required.");
         }
         return url.matches(URL_REGEX);
     }
@@ -63,7 +63,7 @@ public class URLHTMLVisitJournal  {
     // adds Journal's entry using "JSoup" library
     public boolean registerVisit( final String newURL ){
         if ( !isValidURL(newURL) ){
-            throw new IllegalArgumentException("URL address is supposed to be valid");
+            throw new IllegalArgumentException("Valid URL address is required.");
         }
 
         Document newDoc;
@@ -81,11 +81,11 @@ public class URLHTMLVisitJournal  {
     // adds Journal's entry manually
     public boolean registerVisit( final String newURL, final String HTMLContent ){
         if ( !isValidURL(newURL) ){
-            throw new IllegalArgumentException("URL address is supposed to be valid");
+            throw new IllegalArgumentException("Valid URL address is required.");
         }
 
         if ( null == HTMLContent || HTMLContent.trim().isEmpty() ){
-            throw new IllegalArgumentException("HTML content has to be non-empty");
+            throw new IllegalArgumentException("Non-empty HTML content is required.");
         }
 
         Document newDoc = Jsoup.parse(HTMLContent);
@@ -96,7 +96,7 @@ public class URLHTMLVisitJournal  {
     // looks for HTML code in existing Map by entered URL
     public String getVisitedHTMLPage( final String url ){
         if ( !isValidURL(url) ){
-            throw new IllegalArgumentException("URL address is supposed to be valid");
+            throw new IllegalArgumentException("Valid URL address is required.");
         }
 
         Document resultDoc = this.journalData.get(url);
