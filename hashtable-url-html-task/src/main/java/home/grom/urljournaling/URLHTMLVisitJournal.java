@@ -28,7 +28,7 @@ public class URLHTMLVisitJournal  {
 
     // It could be better but IMO it seems good enough for attendance test
     // Reference : https://stackoverflow.com/questions/163360/regular-expression-to-match-urls-in-java
-    private static final String URLRegex = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+    private static final String URL_REGEX = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
     private static final int JSOUP_TIMEOUT = 20_000;
 
@@ -57,7 +57,7 @@ public class URLHTMLVisitJournal  {
         if ( null == url ){
             throw new IllegalArgumentException("referencing URL to null is not allowed");
         }
-        return url.matches(URLRegex);
+        return url.matches(URL_REGEX);
     }
 
     // adds Journal's entry using "JSoup" library
