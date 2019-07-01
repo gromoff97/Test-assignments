@@ -19,7 +19,9 @@ public final class JournalComparisonNotifier {
      * This class won't need to create any instances
      * because there are only static methods
      * */
-    private JournalComparisonNotifier(){}
+    private JournalComparisonNotifier() {
+        throw new AssertionError("Instance of this class is not supposed to be created because it's utility class.");
+    }
 
     private static boolean isValidEmailAddress(final String email){
         if ( null == email ) {
