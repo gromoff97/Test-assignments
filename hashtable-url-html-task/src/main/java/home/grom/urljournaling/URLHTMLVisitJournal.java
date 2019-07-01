@@ -30,6 +30,8 @@ public class URLHTMLVisitJournal  {
     // Reference : https://stackoverflow.com/questions/163360/regular-expression-to-match-urls-in-java
     private static final String URLRegex = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
+    private static final int JSOUP_TIMEOUT = 20_000;
+
     public URLHTMLVisitJournal() {
         this.workingMap = new ConcurrentHashMap<>();
     }
@@ -66,7 +68,7 @@ public class URLHTMLVisitJournal  {
 
         Document newDoc;
         try {
-            newDoc = Jsoup.connect(newURL).maxBodySize(0).timeout(20_000).get();
+            newDoc = Jsoup.connect(newURL).maxBodySize(0).timeout(JSOUP_TIMEOUT).get();
         } catch (IOException e) {
             e.printStackTrace();
             return false;
