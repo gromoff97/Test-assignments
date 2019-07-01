@@ -24,7 +24,7 @@ public class URLHTMLVisitJournal  {
      * null-keys and null-values  are not allowed to be stored.
      * So, in my opinion, it's like HashTable, but seems better :)
      * */
-    private Map<String, Document> workingMap;
+    private Map<String, Document> journalData;
 
     // It could be better but IMO it seems good enough for attendance test
     // Reference : https://stackoverflow.com/questions/163360/regular-expression-to-match-urls-in-java
@@ -33,7 +33,7 @@ public class URLHTMLVisitJournal  {
     private static final int JSOUP_TIMEOUT = 20_000;
 
     public URLHTMLVisitJournal() {
-        this.workingMap = new ConcurrentHashMap<>();
+        this.journalData = new ConcurrentHashMap<>();
     }
 
     public URLHTMLVisitJournal( Set<String> URLSet ){
@@ -41,7 +41,7 @@ public class URLHTMLVisitJournal  {
             throw new IllegalArgumentException("referencing Set of urls to null is not allowed");
         }
 
-        this.workingMap = new ConcurrentHashMap<>();
+        this.journalData = new ConcurrentHashMap<>();
 
         // "Empty Set" means "Empty Map"
         if ( URLSet.isEmpty() ){
@@ -74,7 +74,7 @@ public class URLHTMLVisitJournal  {
             return false;
         }
 
-        this.workingMap.put(newURL, newDoc);
+        this.journalData.put(newURL, newDoc);
         return true;
     }
 
@@ -89,7 +89,7 @@ public class URLHTMLVisitJournal  {
         }
 
         Document newDoc = Jsoup.parse(HTMLContent);
-        this.workingMap.put(newURL,newDoc);
+        this.journalData.put(newURL,newDoc);
         return true;
     }
 
@@ -99,7 +99,7 @@ public class URLHTMLVisitJournal  {
             throw new IllegalArgumentException("URL address is supposed to be valid");
         }
 
-        Document resultDoc = this.workingMap.get(url);
+        Document resultDoc = this.journalData.get(url);
         if ( null == resultDoc ) {
             return null;
         }
@@ -108,11 +108,11 @@ public class URLHTMLVisitJournal  {
     }
 
     public Set<String> getVisitedURLSet(){
-        return new HashSet<>(this.workingMap.keySet());
+        return new HashSet<>(this.journalData.keySet());
     }
 
     public int getSize(){
-        return this.workingMap.size();
+        return this.journalData.size();
     }
 
     public boolean isEmpty(){
@@ -129,6 +129,6 @@ public class URLHTMLVisitJournal  {
             return false;
         }
 
-        return this.workingMap.equals(((URLHTMLVisitJournal) obj).workingMap);
+        return this.journalData.equals(((URLHTMLVisitJournal) obj).journalData);
     }
 }
