@@ -116,4 +116,17 @@ public class URLHTMLVisitJournal  {
     public boolean isEmpty(){
         return 0 == getSize();
     }
+
+    @Override
+    public boolean equals( Object obj ) {
+        if ( obj == this ) {
+            return true;
+        }
+
+        if ( !(obj instanceof URLHTMLVisitJournal) ) {
+            return false;
+        }
+
+        return this.workingMap.equals(((URLHTMLVisitJournal) obj).workingMap);
+    }
 }
