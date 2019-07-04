@@ -7,9 +7,9 @@ public final class JournalsDifferenceMailData {
     private URLHTMLVisitJournal oldJournal;
     private URLHTMLVisitJournal freshJournal;
 
-    private Set<String> uniqueOldUrls;
-    private Set<String> uniqueFreshUrls;
-    private Set<String> intersectedUrlsWithModifiedHTML;
+    private Set<String> uniqueOldURLs;
+    private Set<String> uniqueFreshURLs;
+    private Set<String> intersectedURLsWithModifiedHTML;
 
     public JournalsDifferenceMailData( URLHTMLVisitJournal oldJournal, URLHTMLVisitJournal freshJournal ) {
         if ( null == oldJournal || null == freshJournal ) {
@@ -23,9 +23,9 @@ public final class JournalsDifferenceMailData {
         this.oldJournal = oldJournal;
         this.freshJournal = freshJournal;
 
-        uniqueOldUrls = getDiffFrom(this.freshJournal.getVisitedURLSet(),this.oldJournal.getVisitedURLSet());
-        uniqueFreshUrls = getDiffFrom(this.oldJournal.getVisitedURLSet(),this.freshJournal.getVisitedURLSet());
-        intersectedUrlsWithModifiedHTML = getIntersectedURLsWithDifferentHTML(this.oldJournal,this.freshJournal);
+        uniqueOldURLs = getDiffFrom(this.freshJournal.getVisitedURLSet(),this.oldJournal.getVisitedURLSet());
+        uniqueFreshURLs = getDiffFrom(this.oldJournal.getVisitedURLSet(),this.freshJournal.getVisitedURLSet());
+        intersectedURLsWithModifiedHTML = getIntersectedURLsWithDifferentHTML(this.oldJournal,this.freshJournal);
     }
 
     private static Set<String> getDiffFrom( Set<String> a, Set<String> b ) {
