@@ -9,6 +9,7 @@ public final class JournalsDifferenceMailData {
 
     private Set<String> uniqueOldUrls;
     private Set<String> uniqueFreshUrls;
+    private Set<String> intersectedUrlsWithModifiedHTML;
 
     public JournalsDifferenceMailData( URLHTMLVisitJournal oldJournal, URLHTMLVisitJournal freshJournal ) {
         if ( null == oldJournal || null == freshJournal ) {
@@ -24,6 +25,7 @@ public final class JournalsDifferenceMailData {
 
         uniqueOldUrls = getDiffFrom(this.freshJournal.getVisitedURLSet(),this.oldJournal.getVisitedURLSet());
         uniqueFreshUrls = getDiffFrom(this.oldJournal.getVisitedURLSet(),this.freshJournal.getVisitedURLSet());
+        intersectedUrlsWithModifiedHTML = getIntersectedURLsWithDifferentHTML(this.oldJournal,this.freshJournal);
     }
 
     private static Set<String> getDiffFrom( Set<String> a, Set<String> b ) {
@@ -31,6 +33,23 @@ public final class JournalsDifferenceMailData {
         if ( !b.isEmpty() ) {
             tmpSet.removeAll(b);
         }
+        return tmpSet;
+    }
+
+    private static Set<String> getIntersectedURLsWithDifferentHTML( URLHTMLVisitJournal firstJournal, URLHTMLVisitJournal secondJournal ) {
+        Set<String> tmpSet = new HashSet<>(firstJournal.getVisitedURLSet());
+
+        tmpSet.retainAll(secondJournal.getVisitedURLSet());
+        if ( tmpSet.isEmpty() ) {
+            return tmpSet;
+        }
+
+        tmpSet.removeIf((URLKey)-> {
+            String firstHTML = firstJournal.getVisitedHTMLPage(URLKey);
+            String secondHTML = secondJournal.getVisitedHTMLPage(URLKey);
+            return firstHTML.equals(secondHTML);
+        });
+
         return tmpSet;
     }
 }
