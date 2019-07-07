@@ -30,52 +30,6 @@ public final class JournalComparisonNotifier {
         return email.matches(emailRegex);
     }
 
-    // gets URLs which exist only in yesterday's Journal
-    private static Set<String> getDisappearedURLs(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal){
-        Set<String> resultSet = yesterdayJournal.getVisitedURLSet();
-        Set<String> todayURLs = todayJournal.getVisitedURLSet();
-
-        if ( todayJournal.isEmpty() ) {
-            return resultSet;
-        }
-
-        resultSet.removeAll(todayURLs);
-        return resultSet;
-    }
-
-    // gets URLs which exist only in today's Journal
-    private static Set<String> getNewURLs(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal){
-        Set<String> resultSet = todayJournal.getVisitedURLSet();
-        Set<String> yesterdayURLs = yesterdayJournal.getVisitedURLSet();
-
-        if ( yesterdayJournal.isEmpty() ) {
-            return resultSet;
-        }
-
-        resultSet.removeAll(yesterdayURLs);
-        return resultSet;
-    }
-
-    // gets URLs which exist in both Journals, but HTMLContent was modificated in today's Journal
-    private static Set<String> getHTMLModifiedURLs(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal){
-        Set<String> resultSet = todayJournal.getVisitedURLSet();
-        Set<String> yesterdayURLs = yesterdayJournal.getVisitedURLSet();
-
-        // got interception of given journals
-        resultSet.retainAll(yesterdayURLs);
-
-        // no point to continue if following condition is true
-        if ( resultSet.isEmpty() ) {
-            return resultSet;
-        }
-
-        resultSet.removeIf((urlKey)->
-            yesterdayJournal.getVisitedHTMLPage(urlKey).equals(todayJournal.getVisitedHTMLPage((String) urlKey))
-        );
-
-        return resultSet;
-    }
-
     private static String formatURLSet(final Set<String> URLSet){
         if ( URLSet.isEmpty() ) {
             return "--empty--";
