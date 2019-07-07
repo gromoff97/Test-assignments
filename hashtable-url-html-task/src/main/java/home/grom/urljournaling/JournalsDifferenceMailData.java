@@ -62,4 +62,12 @@ public final class JournalsDifferenceMailData {
     public Set<String> getIntersectedURLsWithModifiedHTML() {
         return Collections.unmodifiableSet(intersectedURLsWithModifiedHTML);
     }
+
+    @Override
+    public String toString() {
+        return String.format("1. Following URLs disappeared : %s\n" +
+                        "2. Following URLs appeared : %s\n" +
+                        "3. Following URLs has changed its HTML-content : %s\n",
+                uniqueOldURLs, uniqueFreshURLs, intersectedURLsWithModifiedHTML);
+    }
 }
