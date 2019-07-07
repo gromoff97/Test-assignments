@@ -1,6 +1,7 @@
 package home.grom.app;
 
 import home.grom.urljournaling.JournalComparisonNotifier;
+import home.grom.urljournaling.JournalsDifferenceMailData;
 import home.grom.urljournaling.URLHTMLVisitJournal;
 import org.simplejavamail.mailer.Mailer;
 import org.simplejavamail.mailer.MailerBuilder;
@@ -60,7 +61,7 @@ public class App
          * That's why we need to create Mailer's instance before sending.
          * */
         JournalComparisonNotifier.sendComparisonResults(
-                yesterdayJournal,todayJournal,
+                new JournalsDifferenceMailData(yesterdayJournal, todayJournal),
                 "gromoff97@mail.ru",
                 "Sekretar' Sekretar'evna",
                 customMailer
