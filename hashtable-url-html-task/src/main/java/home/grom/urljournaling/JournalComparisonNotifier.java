@@ -1,19 +1,15 @@
 package home.grom.urljournaling;
 
+import org.apache.commons.validator.routines.EmailValidator;
 import org.simplejavamail.email.Email;
 import org.simplejavamail.email.EmailBuilder;
 import org.simplejavamail.mailer.Mailer;
-
-import java.util.Set;
 
 /*
  * This class provides only static method, and only one of them is public
  * ( other methods are just "helpers" to this one )
  * */
 public final class JournalComparisonNotifier {
-    // It could be better but IMO it seems good enough for attendance test
-    // Reference : https://howtodoinjava.com/regex/java-regex-validate-email-address/
-    private final static String emailRegex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
 
     /*
      * This class won't need to create any instances
@@ -27,7 +23,7 @@ public final class JournalComparisonNotifier {
         if ( null == email ) {
             throw new IllegalArgumentException("Email address is not supposed to reference to null");
         }
-        return email.matches(emailRegex);
+        return EmailValidator.getInstance().isValid(email);
     }
 
     private static String createForm( JournalsDifferenceMailData mailData, final String fullName){
