@@ -57,18 +57,16 @@ public final class JournalComparisonNotifier {
         );
     }
 
-    public static void sendComparisonResults(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal,
-                                      final String emailAddress, final String fullName,
-                                      Mailer mailer){
+    public static void sendComparisonResults( JournalsDifferenceMailData mailData, final String emailAddress, final String fullName, Mailer mailer) {
         if ( !isValidEmailAddress(emailAddress) ) {
-            throw new IllegalArgumentException("Email is supposed to be valid");
+            throw new IllegalArgumentException("Valid email is required.");
         }
 
         if ( null == mailer ){
-            throw new IllegalArgumentException("Referencing Mailer to null is not allowed");
+            throw new IllegalArgumentException("Non-null reference to mailer is required.");
         }
 
-        String mailContent = createForm( yesterdayJournal, todayJournal, fullName );
+        String mailContent = createForm( mailData, fullName );
         Email email = EmailBuilder.startingBlank()
                 .from("Journal-comparison notifier", "notificationservice@redsys.net")
                 .to(fullName, emailAddress)
