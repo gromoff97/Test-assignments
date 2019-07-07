@@ -18,8 +18,11 @@ public final class JournalsDifferenceMailData {
             throw new IllegalArgumentException("Different journals' instances are required");
         }
 
-        uniqueOldURLs = getDiffFrom(freshJournal.getVisitedURLSet(), oldJournal.getVisitedURLSet());
-        uniqueFreshURLs = getDiffFrom(oldJournal.getVisitedURLSet(), freshJournal.getVisitedURLSet());
+        Set<String> freshURLSet = freshJournal.getVisitedURLSet();
+        Set<String> oldURLSet = oldJournal.getVisitedURLSet();
+
+        uniqueOldURLs = getDiffFrom(freshURLSet, oldURLSet);
+        uniqueFreshURLs = getDiffFrom(oldURLSet, freshURLSet);
         intersectedURLsWithModifiedHTML = getIntersectedURLsWithDifferentHTML(oldJournal, freshJournal);
     }
 
