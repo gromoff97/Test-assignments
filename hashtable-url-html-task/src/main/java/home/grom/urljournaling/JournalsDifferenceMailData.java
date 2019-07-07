@@ -1,5 +1,6 @@
 package home.grom.urljournaling;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -51,5 +52,17 @@ public final class JournalsDifferenceMailData {
         });
 
         return tmpSet;
+    }
+
+    public Set<String> getUniqueOldURLs() {
+        return Collections.unmodifiableSet(uniqueOldURLs);
+    }
+
+    public Set<String> getUniqueFreshURLs() {
+        return Collections.unmodifiableSet(uniqueFreshURLs);
+    }
+
+    public Set<String> getIntersectedURLsWithModifiedHTML() {
+        return Collections.unmodifiableSet(intersectedURLsWithModifiedHTML);
     }
 }
