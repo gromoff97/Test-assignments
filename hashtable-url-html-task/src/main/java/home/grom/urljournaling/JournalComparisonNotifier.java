@@ -30,14 +30,6 @@ public final class JournalComparisonNotifier {
         return email.matches(emailRegex);
     }
 
-    private static String formatURLSet(final Set<String> URLSet){
-        if ( URLSet.isEmpty() ) {
-            return "--empty--";
-        }
-
-        return "{ " + String.join(" , ",URLSet) + " }";
-    }
-
     private static String createForm( JournalsDifferenceMailData mailData, final String fullName){
         if ( null == mailData ) {
             throw new IllegalArgumentException("Non-null reference to mail data is required.");
