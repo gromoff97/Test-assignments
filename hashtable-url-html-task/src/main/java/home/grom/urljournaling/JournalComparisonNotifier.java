@@ -38,30 +38,22 @@ public final class JournalComparisonNotifier {
         return "{ " + String.join(" , ",URLSet) + " }";
     }
 
-    private static String createForm(final URLHTMLVisitJournal yesterdayJournal, final URLHTMLVisitJournal todayJournal, final String fullName){
-        if ( null == yesterdayJournal || null == todayJournal ) {
-            throw new IllegalArgumentException("Referencing any Journal to null is not allowed");
-        }
-
-        if ( yesterdayJournal == todayJournal ) {
-            throw new IllegalArgumentException("Referencing Journals to each other is not allowed");
+    private static String createForm( JournalsDifferenceMailData mailData, final String fullName){
+        if ( null == mailData ) {
+            throw new IllegalArgumentException("Non-null reference to mail data is required.");
         }
 
         if ( null == fullName || fullName.trim().isEmpty() ){
-            throw new IllegalArgumentException("Fullname is supposed to not reference to null or be empty");
+            throw new IllegalArgumentException("Non-null and non-blank full name is required.");
         }
 
         return String.format("Dear %s\n\n" +
                         "Here is Journal changes occurred in 24 hours :\n" +
-                        "1. Following URLs disappeared : %s\n" +
-                        "2. Following URLs appeared : %s\n" +
-                        "3. Following URLs has changed its HTML-content : %s\n\n" +
+                        "%s" +
                         "Best Wishes,\n" +
                         "Automatic Monitoring System\n",
                 fullName,
-                formatURLSet(getDisappearedURLs(yesterdayJournal,todayJournal)),
-                formatURLSet(getNewURLs(yesterdayJournal,todayJournal)),
-                formatURLSet(getHTMLModifiedURLs(yesterdayJournal,todayJournal))
+                mailData
         );
     }
 
