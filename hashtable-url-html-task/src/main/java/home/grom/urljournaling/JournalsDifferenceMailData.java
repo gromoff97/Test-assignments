@@ -5,9 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public final class JournalsDifferenceMailData {
-    private URLHTMLVisitJournal oldJournal;
-    private URLHTMLVisitJournal freshJournal;
-
     private Set<String> uniqueOldURLs;
     private Set<String> uniqueFreshURLs;
     private Set<String> intersectedURLsWithModifiedHTML;
@@ -21,12 +18,9 @@ public final class JournalsDifferenceMailData {
             throw new IllegalArgumentException("Different journals' instances are required");
         }
 
-        this.oldJournal = oldJournal;
-        this.freshJournal = freshJournal;
-
-        uniqueOldURLs = getDiffFrom(this.freshJournal.getVisitedURLSet(),this.oldJournal.getVisitedURLSet());
-        uniqueFreshURLs = getDiffFrom(this.oldJournal.getVisitedURLSet(),this.freshJournal.getVisitedURLSet());
-        intersectedURLsWithModifiedHTML = getIntersectedURLsWithDifferentHTML(this.oldJournal,this.freshJournal);
+        uniqueOldURLs = getDiffFrom(freshJournal.getVisitedURLSet(), oldJournal.getVisitedURLSet());
+        uniqueFreshURLs = getDiffFrom(oldJournal.getVisitedURLSet(), freshJournal.getVisitedURLSet());
+        intersectedURLsWithModifiedHTML = getIntersectedURLsWithDifferentHTML(oldJournal, freshJournal);
     }
 
     private static Set<String> getDiffFrom( Set<String> a, Set<String> b ) {
