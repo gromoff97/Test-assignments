@@ -1,5 +1,6 @@
 package home.grom.urljournaling;
 
+import org.apache.commons.validator.routines.UrlValidator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -26,9 +27,7 @@ public class URLHTMLVisitJournal  {
      * */
     private Map<String, Document> journalData;
 
-    // It could be better but IMO it seems good enough for attendance test
-    // Reference : https://stackoverflow.com/questions/163360/regular-expression-to-match-urls-in-java
-    private static final String URL_REGEX = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+    private static final UrlValidator urlValidator = new UrlValidator();
 
     private static final int JSOUP_TIMEOUT = 20_000;
 
@@ -57,7 +56,7 @@ public class URLHTMLVisitJournal  {
         if ( null == url ){
             throw new IllegalArgumentException("Referencing URL to non-null instance is required.");
         }
-        return url.matches(URL_REGEX);
+        return urlValidator.isValid(url);
     }
 
     // adds Journal's entry using "JSoup" library
