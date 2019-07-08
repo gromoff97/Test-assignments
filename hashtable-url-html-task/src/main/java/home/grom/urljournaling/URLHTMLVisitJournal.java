@@ -130,4 +130,9 @@ public class URLHTMLVisitJournal  {
 
         return this.journalData.equals(((URLHTMLVisitJournal) obj).journalData);
     }
+
+    @Override
+    public int hashCode() {
+        return journalData.hashCode();
+    }
 }
