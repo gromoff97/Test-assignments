@@ -107,7 +107,7 @@ public class URLHTMLVisitJournal  {
     }
 
     public Set<String> getVisitedURLSet(){
-        return new HashSet<>(this.journalData.keySet());
+        return Collections.unmodifiableSet(this.journalData.keySet());
     }
 
     public int getSize(){
