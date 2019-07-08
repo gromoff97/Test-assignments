@@ -27,7 +27,7 @@ public class URLHTMLVisitJournal  {
      * */
     private Map<String, Document> journalData;
 
-    private static final UrlValidator urlValidator = new UrlValidator();
+    private static final UrlValidator URL_VALIDATOR = new UrlValidator();
 
     private static final int JSOUP_TIMEOUT = 20_000;
 
@@ -56,7 +56,7 @@ public class URLHTMLVisitJournal  {
         if ( null == url ){
             throw new IllegalArgumentException("Referencing URL to non-null instance is required.");
         }
-        return urlValidator.isValid(url);
+        return URL_VALIDATOR.isValid(url);
     }
 
     // adds Journal's entry using "JSoup" library
