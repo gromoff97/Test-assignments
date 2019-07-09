@@ -22,21 +22,6 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class URLHTMLVisitJournal  {
 
-    /*
-     * This field will reference to ConcurrentHashMap's instance,
-     * not HashTable's instance as task "says".
-     * Reasons are following :
-     * 1) HashTable is obsolete
-     * 2) Duplicates are not necessary
-     *    ( even if url was visited 1 000 000 times,
-     *    we need only the fact about last visit with last html content )
-     * 3) ConcurrentHashMap and HashTable are both thread-safe but
-     *    the first one wins in performance
-     *    ( at least because there are no read-locks )
-     * Also implementation was made in a way that
-     * null-keys and null-values  are not allowed to be stored.
-     * So, in my opinion, it's like HashTable, but seems better :)
-     * */
     private Map<String, Document> journalData;
 
     private static final UrlValidator URL_VALIDATOR = new UrlValidator();
