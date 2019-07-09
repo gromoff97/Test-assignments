@@ -15,7 +15,10 @@ public final class JournalsDifferenceMailData {
         }
 
         if ( oldJournal == freshJournal ) {
-            throw new IllegalArgumentException("Different journals' instances are required");
+            uniqueOldURLs = new HashSet<>();
+            uniqueFreshURLs = new HashSet<>();
+            intersectedURLsWithModifiedHTML = new HashSet<>();
+            return;
         }
 
         Set<String> freshURLSet = freshJournal.getVisitedURLSet();
