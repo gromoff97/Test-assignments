@@ -28,6 +28,9 @@ public class URLHTMLVisitJournal  {
      */
     private Map<String, Document> journalData;
 
+    /**
+     * Sets limit of timeout while connecting to URLs
+     */
     private static final int JSOUP_TIMEOUT = 20_000;
 
     public URLHTMLVisitJournal() {
