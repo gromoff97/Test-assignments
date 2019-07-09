@@ -22,6 +22,10 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class URLHTMLVisitJournal  {
 
+    /**
+     * The map with entries containing URL-link as {@link String}
+     * and instance of {@link Document}-class from {@link Jsoup}-library
+     */
     private Map<String, Document> journalData;
 
     private static final UrlValidator URL_VALIDATOR = new UrlValidator();
