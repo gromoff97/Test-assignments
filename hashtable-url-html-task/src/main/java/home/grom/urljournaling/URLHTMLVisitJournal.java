@@ -62,6 +62,11 @@ public class URLHTMLVisitJournal  {
         }
     }
 
+    /**
+     * @param url contains URL of some web-page.
+     * @return the result of checking URL for correctness.
+     * @throws IllegalArgumentException if URL-argument references to null.
+     */
     private static boolean isValidURL( final String url ){
         if ( null == url ){
             throw new IllegalArgumentException("Referencing URL to non-null instance is required.");
