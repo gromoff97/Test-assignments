@@ -33,10 +33,18 @@ public class URLHTMLVisitJournal  {
      */
     private static final int JSOUP_TIMEOUT = 20_000;
 
+    /**
+     * Creates empty journal.
+     */
     public URLHTMLVisitJournal() {
         this.journalData = new ConcurrentHashMap<>();
     }
 
+    /**
+     * Creates journal based on URLs provided in its parameter,
+     * downloads HTML-codes for each URL during {@link Set} iterating.
+     * @param urlSet set of links.
+     */
     public URLHTMLVisitJournal( Set<String> urlSet ){
         if ( null == urlSet ){
             throw new IllegalArgumentException("Referencing Set of urls to non-null instance is required.");
