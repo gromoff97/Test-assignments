@@ -35,19 +35,19 @@ public class URLHTMLVisitJournal  {
         this.journalData = new ConcurrentHashMap<>();
     }
 
-    public URLHTMLVisitJournal( Set<String> URLSet ){
-        if ( null == URLSet ){
+    public URLHTMLVisitJournal( Set<String> urlSet ){
+        if ( null == urlSet ){
             throw new IllegalArgumentException("Referencing Set of urls to non-null instance is required.");
         }
 
         this.journalData = new ConcurrentHashMap<>();
 
         // "Empty Set" means "Empty Map"
-        if ( URLSet.isEmpty() ){
+        if ( urlSet.isEmpty() ){
             return;
         }
 
-        for ( String url : URLSet ){
+        for ( String url : urlSet ){
             this.registerVisit(url);
         }
     }
@@ -78,16 +78,16 @@ public class URLHTMLVisitJournal  {
     }
 
     // adds Journal's entry manually
-    public boolean registerVisit( final String newURL, final String HTMLContent ){
+    public boolean registerVisit( final String newURL, final String htmlContent ){
         if ( !isValidURL(newURL) ){
             throw new IllegalArgumentException("Valid URL address is required.");
         }
 
-        if ( null == HTMLContent || HTMLContent.trim().isEmpty() ){
+        if ( null == htmlContent || htmlContent.trim().isEmpty() ){
             throw new IllegalArgumentException("Non-empty HTML content is required.");
         }
 
-        Document newDoc = Jsoup.parse(HTMLContent);
+        Document newDoc = Jsoup.parse(htmlContent);
         this.journalData.put(newURL,newDoc);
         return true;
     }
