@@ -8,6 +8,18 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * This class is based on a "weak" decorator pattern
+ * ( i.e. this class does not implements it's main attribute's interface ).
+ *
+ * It consists of web-journal represented as a
+ * class implementing {@link Map}-interface ( i.e. {@link ConcurrentHashMap} )
+ * and methods manipulating its state ( i.e. creating and reading/searching )
+ *
+ * @see     Map
+ * @see     ConcurrentHashMap
+ * @author  <a href="mailto:gromoff97@mail.ru">Anton Gromov</a>
+ */
 public class URLHTMLVisitJournal  {
 
     /*
