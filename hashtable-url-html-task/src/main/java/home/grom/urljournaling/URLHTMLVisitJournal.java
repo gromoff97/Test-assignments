@@ -77,7 +77,7 @@ public class URLHTMLVisitJournal  {
 
     /**
      * Gets HTML-content from entered URL and creates new entry in journal.
-     * @param newURL
+     * @param newURL contains URL of some web-page.
      * @return result of adding new entry to journal
      * @throws IllegalArgumentException if URL-argument is invalid
      */
