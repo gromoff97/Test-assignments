@@ -63,6 +63,7 @@ public class URLHTMLVisitJournal  {
     }
 
     /**
+     * Validates entered URL with {@link UrlValidator#isValid(String)}
      * @param url contains URL of some web-page.
      * @return the result of checking URL for correctness.
      * @throws IllegalArgumentException if URL-argument references to null.
