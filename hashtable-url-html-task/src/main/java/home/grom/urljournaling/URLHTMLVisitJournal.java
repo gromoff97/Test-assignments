@@ -74,7 +74,12 @@ public class URLHTMLVisitJournal  {
         return UrlValidator.getInstance().isValid(url);
     }
 
-    // adds Journal's entry using "JSoup" library
+    /**
+     * Gets HTML-content from entered URL and creates new entry in journal.
+     * @param newURL
+     * @return result of adding new entry to journal
+     * @throws IllegalArgumentException if URL-argument is invalid
+     */
     public boolean registerVisit( final String newURL ){
         if ( !isValidURL(newURL) ){
             throw new IllegalArgumentException("Valid URL address is required.");
