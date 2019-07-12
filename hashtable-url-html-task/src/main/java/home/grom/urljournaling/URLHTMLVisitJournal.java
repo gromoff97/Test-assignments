@@ -119,7 +119,12 @@ public class URLHTMLVisitJournal  {
         return true;
     }
 
-    // looks for HTML code in existing Map by entered URL
+    /**
+     * Looks for HTML-page for passed URL-argument.
+     * @param url URL of page.
+     * @return HTML-content for searched URL or null if page with this URL is not found.
+     * @throws IllegalArgumentException if URL-argument is invalid.
+     */
     public String getVisitedHTMLPage( final String url ){
         if ( !isValidURL(url) ){
             throw new IllegalArgumentException("Valid URL address is required.");
