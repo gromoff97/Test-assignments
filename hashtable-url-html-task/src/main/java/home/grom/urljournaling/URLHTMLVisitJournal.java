@@ -91,7 +91,7 @@ public class URLHTMLVisitJournal  {
     }
 
     // looks for HTML code in existing Map by entered URL
-    public String getVisitedHTMLPage( final String url ){
+    public String searchPage( final String url ){
         if ( !isValidURL(url) ){
             throw new IllegalArgumentException("Valid URL address is required.");
         }
