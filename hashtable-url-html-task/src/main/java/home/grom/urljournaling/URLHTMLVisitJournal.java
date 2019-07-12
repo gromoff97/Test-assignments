@@ -138,14 +138,23 @@ public class URLHTMLVisitJournal  {
         return resultDoc.outerHtml();
     }
 
+    /**
+     * @return the unmodifiable set of URL from this journal
+     */
     public Set<String> getVisitedURLSet(){
         return Collections.unmodifiableSet(this.journalData.keySet());
     }
 
+    /**
+     * @return the size of this journal.
+     */
     public int getSize(){
         return this.journalData.size();
     }
 
+    /**
+     * @return true if this journal doesn't contain any entry.
+     */
     public boolean isEmpty(){
         return 0 == getSize();
     }
