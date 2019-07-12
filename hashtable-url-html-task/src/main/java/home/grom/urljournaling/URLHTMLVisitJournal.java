@@ -98,7 +98,13 @@ public class URLHTMLVisitJournal  {
         return true;
     }
 
-    // adds Journal's entry manually
+    /**
+     * Gets both HTML-content and URL from its parameters. Then it creates new entry in journal.
+     * @param newURL contains URL of some web-page.
+     * @param htmlContent contains HTML-page of URL-parameter
+     * @return result of adding new entry to journal
+     * @throws IllegalArgumentException if URL-argument is invalid or HTML-content is blank or references to null
+     */
     public boolean registerVisit( final String newURL, final String htmlContent ){
         if ( !isValidURL(newURL) ){
             throw new IllegalArgumentException("Valid URL address is required.");
