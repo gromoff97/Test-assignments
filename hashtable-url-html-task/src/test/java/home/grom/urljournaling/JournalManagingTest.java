@@ -1,5 +1,6 @@
 package home.grom.urljournaling;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class JournalManagingTest {
@@ -7,6 +8,14 @@ public class JournalManagingTest {
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void throwsExceptionIfTriesToCreateJournalInstanceWithNullURLSet() {
         new URLHTMLVisitJournal(null);
+    }
+
+    @Test
+    public void journalAfterRegisteringVisitIsNotEmpty() {
+        URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
+        Assert.assertTrue(testJournal.isEmpty());
+        testJournal.registerVisit("https://stackoverflow.com/");
+        Assert.assertFalse(testJournal.isEmpty());
     }
 
     @Test(expectedExceptions = UnsupportedOperationException.class)
