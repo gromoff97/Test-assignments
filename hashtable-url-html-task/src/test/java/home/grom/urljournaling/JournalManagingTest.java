@@ -18,6 +18,18 @@ public class JournalManagingTest {
         Assert.assertFalse(testJournal.isEmpty());
     }
 
+    @Test
+    public void journalSizeAfterRegisteringIsCorrect() {
+        URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
+        Assert.assertEquals(testJournal.getSize(), 0);
+
+        testJournal.registerVisit("https://habr.com/");
+        Assert.assertEquals(testJournal.getSize(), 1);
+
+        testJournal.registerVisit("https://yandex.ru/");
+        Assert.assertEquals(testJournal.getSize(), 2);
+    }
+
     @Test(expectedExceptions = UnsupportedOperationException.class)
     public void throwsExceptionIfTriesToAddElementToJournalKeySet() {
         String url = "https://www.youtube.com/";
