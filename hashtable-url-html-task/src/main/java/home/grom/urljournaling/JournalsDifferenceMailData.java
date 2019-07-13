@@ -46,8 +46,8 @@ public final class JournalsDifferenceMailData {
         }
 
         tmpSet.removeIf((URLKey)-> {
-            String firstHTML = firstJournal.searchPage(URLKey);
-            String secondHTML = secondJournal.searchPage(URLKey);
+            String firstHTML = firstJournal.search(URLKey);
+            String secondHTML = secondJournal.search(URLKey);
             return firstHTML.equals(secondHTML);
         });
 
