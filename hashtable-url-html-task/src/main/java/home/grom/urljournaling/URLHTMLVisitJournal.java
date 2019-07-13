@@ -125,7 +125,7 @@ public class URLHTMLVisitJournal  {
      * @return HTML-content for searched URL or null if page with this URL is not found.
      * @throws IllegalArgumentException if URL-argument is invalid.
      */
-    public String searchPage( final String url ) {
+    public String search( final String url ) {
         if ( !isValidURL(url) ){
             throw new IllegalArgumentException("Valid URL address is required.");
         }
