@@ -1,6 +1,7 @@
 package home.grom.urljournaling;
 
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class JournalManagingTest {
@@ -14,6 +15,22 @@ public class JournalManagingTest {
     public void throwsExceptionIfTriesToRegisterNulledURL() {
         URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
         testJournal.registerVisit(null);
+    }
+
+    @DataProvider(name = "InvalidURLs")
+    public static Object[][] credentials() {
+        return new Object[][]{
+                {"https://www.y'outub\"e.com"},
+                {"https://mail...ru/"},
+                {"https:///github.com/"},
+                {"htps://www.atlassian.com/"}
+        };
+    }
+
+    @Test(dataProvider = "InvalidURLs", expectedExceptions = IllegalArgumentException.class)
+    public void throwsExceptionIfTriesToRgisterInvalidURL( String url ) {
+        URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
+        testJournal.registerVisit(url);
     }
 
     @Test
