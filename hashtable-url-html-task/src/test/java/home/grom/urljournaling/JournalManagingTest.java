@@ -10,6 +10,12 @@ public class JournalManagingTest {
         new URLHTMLVisitJournal(null);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void throwsExceptionIfTriesToRegisterNulledURL() {
+        URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
+        testJournal.registerVisit(null);
+    }
+
     @Test
     public void journalAfterRegisteringVisitIsNotEmpty() {
         URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
