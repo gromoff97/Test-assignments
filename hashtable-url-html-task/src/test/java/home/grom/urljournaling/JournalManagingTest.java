@@ -6,25 +6,25 @@ import org.testng.annotations.Test;
 
 public class JournalManagingTest {
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Nn]ull.*$")
     public void throwsExceptionIfTriesToCreateJournalInstanceWithNullURLSet() {
         new URLHTMLVisitJournal(null);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*null.*$")
     public void throwsExceptionIfTriesToRegisterNulledURL() {
         URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
         testJournal.registerVisit(null);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Nn]ull.*$")
     public void throwsExceptionIfTriesToRegisterValidURLWithNulledHTML() {
         String validURL = "https://grafana.com/";
         URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
         testJournal.registerVisit(validURL, null);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Ee]mpty.*$")
     public void throwsExceptionIfTriesToRegisterValidURLWithBlankHTML() {
         String validURL = "https://grafana.com/";
         URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
@@ -41,7 +41,7 @@ public class JournalManagingTest {
         };
     }
 
-    @Test(dataProvider = "InvalidURLs", expectedExceptions = IllegalArgumentException.class)
+    @Test(dataProvider = "InvalidURLs", expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Vv]alid.*$")
     public void throwsExceptionIfTriesToRgisterInvalidURL( String url ) {
         URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
         testJournal.registerVisit(url);
