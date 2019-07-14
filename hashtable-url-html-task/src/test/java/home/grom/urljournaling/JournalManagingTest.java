@@ -34,7 +34,7 @@ public class JournalManagingTest {
     }
 
     @DataProvider(name = "InvalidURLs")
-    public static Object[][] credentials() {
+    public static Object[][] invalidURLs() {
         return new Object[][]{
                 {"https://www.y'outub\"e.com"},
                 {"https://mail...ru/"},
