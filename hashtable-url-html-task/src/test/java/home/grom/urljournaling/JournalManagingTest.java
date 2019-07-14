@@ -17,18 +17,20 @@ public class JournalManagingTest {
         testJournal.registerVisit(null);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Nn]ull.*$")
-    public void throwsExceptionIfTriesToRegisterValidURLWithNulledHTML() {
-        String validURL = "https://grafana.com/";
-        URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
-        testJournal.registerVisit(validURL, null);
+    @DataProvider(name = "BlankContent")
+    public static Object[][] blankHTMLs() {
+        return new Object[][]{
+                {null},
+                {""},
+                {"  "}
+        };
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Ee]mpty.*$")
-    public void throwsExceptionIfTriesToRegisterValidURLWithBlankHTML() {
+    @Test(dataProvider = "BlankContent", expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Bb]lank.*$")
+    public void throwsExceptionIfTriesToRegisterValidURLWithBlankHTML(String blankString) {
         String validURL = "https://grafana.com/";
         URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
-        testJournal.registerVisit(validURL, "   ");
+        testJournal.registerVisit(validURL, blankString);
     }
 
     @DataProvider(name = "InvalidURLs")
