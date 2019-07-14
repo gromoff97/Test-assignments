@@ -11,7 +11,7 @@ public class JournalManagingTest {
         new URLHTMLVisitJournal(null);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*null.*$")
+    @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Nn]ull.*$")
     public void throwsExceptionIfTriesToRegisterNulledURL() {
         URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
         testJournal.registerVisit(null);
