@@ -58,6 +58,17 @@ public class JournalManagingTest {
     }
 
     @Test
+    public void HTMLContentForURLAfterRegisteringVisitIsNotBlank() {
+        String url = "https://www.google.com/";
+        URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
+        testJournal.registerVisit(url);
+
+        String HTMLContent = testJournal.search(url);
+        Assert.assertFalse(HTMLContent == null);
+        Assert.assertFalse(HTMLContent.trim().isEmpty());
+    }
+
+    @Test
     public void journalSizeAfterRegisteringIsCorrect() {
         URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
         Assert.assertEquals(testJournal.getSize(), 0);
