@@ -80,6 +80,15 @@ public class JournalManagingTest {
         Assert.assertEquals(testJournal.getSize(), 2);
     }
 
+    @Test
+    public void journalAfterRegisteringTheSameURLHasNoDuplicates() {
+        String url = "https://yandex.ru/";
+        URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
+        testJournal.registerVisit(url);
+        testJournal.registerVisit(url);
+        Assert.assertEquals(testJournal.getSize(), 1);
+    }
+
     @Test(expectedExceptions = UnsupportedOperationException.class)
     public void throwsExceptionIfTriesToAddElementToJournalKeySet() {
         String url = "https://www.youtube.com/";
