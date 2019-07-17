@@ -95,4 +95,24 @@ public class JournalManagingTest {
         testJournal.getVisitedURLSet().remove(url);
     }
 
+    @Test
+    public void journalEqualsAndHashCodeMethodsDuringComparisonWorkCorrectly() {
+        String firstURL = "https://www.google.com/";
+        String secondURL = "https://www.youtube.com/";
+
+        URLHTMLVisitJournal firstTestJournal = new URLHTMLVisitJournal();
+        URLHTMLVisitJournal secondTestJournal = new URLHTMLVisitJournal();
+
+        Assert.assertEquals(firstTestJournal, secondTestJournal);
+
+        firstTestJournal.registerVisit(firstURL);
+        firstTestJournal.registerVisit(secondURL);
+
+        secondTestJournal.registerVisit(secondURL);
+        secondTestJournal.registerVisit(firstURL);
+
+        Assert.assertEquals(firstTestJournal, secondTestJournal);
+        Assert.assertEquals(firstTestJournal.hashCode(), secondTestJournal.hashCode());
+    }
+
 }
