@@ -43,7 +43,9 @@ public class URLHTMLVisitJournal  {
     /**
      * Creates journal based on URLs provided in its parameter,
      * downloads HTML-codes for each URL during {@link Set} iterating.
-     * @param urlSet set of links.
+     *
+     * @param   urlSet
+     *          set of links.
      */
     public URLHTMLVisitJournal( Set<String> urlSet ){
         if ( null == urlSet ){
@@ -64,9 +66,15 @@ public class URLHTMLVisitJournal  {
 
     /**
      * Validates entered URL with {@link UrlValidator#isValid(String)}
-     * @param url contains URL of some web-page.
-     * @return the result of checking URL for correctness.
-     * @throws IllegalArgumentException if URL-argument references to null.
+     *
+     * @param   url
+     *          contains URL of some web-page.
+     *
+     * @return  {@code true} if URL is valid,
+     *          otherwise {@code false}.
+     *
+     * @throws  IllegalArgumentException
+     *          if URL-argument references to null.
      */
     private static boolean isValidURL( final String url ){
         if ( null == url ){
@@ -77,9 +85,15 @@ public class URLHTMLVisitJournal  {
 
     /**
      * Gets HTML-content from entered URL and creates new entry in journal.
-     * @param newURL contains URL of some web-page.
-     * @return result of adding new entry to journal
-     * @throws IllegalArgumentException if URL-argument is invalid
+     *
+     * @param   newURL
+     *          contains URL of some web-page.
+     *
+     * @return  {@code true} if adding entry to journal successfully finished,
+     *          otherwise {@code false}.
+     *
+     * @throws  IllegalArgumentException
+     *          if URL-argument is invalid.
      */
     public boolean registerVisit( final String newURL ){
         if ( !isValidURL(newURL) ){
@@ -100,10 +114,18 @@ public class URLHTMLVisitJournal  {
 
     /**
      * Gets both HTML-content and URL from its parameters. Then it creates new entry in journal.
-     * @param newURL contains URL of some web-page.
-     * @param htmlContent contains HTML-page of URL-parameter
-     * @return result of adding new entry to journal
-     * @throws IllegalArgumentException if URL-argument is invalid or HTML-content is blank or references to null
+     *
+     * @param   newURL
+     *          contains URL of some web-page.
+     *
+     * @param   htmlContent
+     *          contains HTML-page of URL-parameter.
+     *
+     * @return  {@code true} if adding entry to journal successfully finished,
+     *          otherwise {@code false}.
+     *
+     * @throws  IllegalArgumentException
+     *          if URL-argument is invalid or HTML-content is blank or references to null.
      */
     public boolean registerVisit( final String newURL, final String htmlContent ){
         if ( !isValidURL(newURL) ){
@@ -121,9 +143,15 @@ public class URLHTMLVisitJournal  {
 
     /**
      * Looks for HTML-page for passed URL-argument.
-     * @param url URL of page.
-     * @return HTML-content for searched URL or null if page with this URL is not found.
-     * @throws IllegalArgumentException if URL-argument is invalid.
+     *
+     * @param   url
+     *          URL of page.
+     *
+     * @return  HTML-content for searched URL
+     *          or null if page with this URL is not found.
+     *
+     * @throws  IllegalArgumentException
+     *          if URL-argument is invalid.
      */
     public String getVisitedHTMLPage( final String url ){
         if ( !isValidURL(url) ){
@@ -153,7 +181,8 @@ public class URLHTMLVisitJournal  {
     }
 
     /**
-     * @return true if this journal doesn't contain any entry.
+     * @return  {@code true} if this journal doesn't contain any entry,
+     *          otherwise {@code false}.
      */
     public boolean isEmpty(){
         return 0 == getSize();
