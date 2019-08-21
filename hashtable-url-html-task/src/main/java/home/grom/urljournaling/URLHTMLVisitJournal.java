@@ -4,6 +4,7 @@ import org.apache.commons.validator.routines.UrlValidator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import javax.print.Doc;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -198,7 +199,25 @@ public class URLHTMLVisitJournal  {
             return false;
         }
 
-        return this.journalData.equals(((URLHTMLVisitJournal) obj).journalData);
+        URLHTMLVisitJournal journalForComparison = (URLHTMLVisitJournal) obj;
+        if ( this.getSize() != journalForComparison.getSize() ) {
+            return false;
+        }
+
+        if ( this.isEmpty() ) {
+            return true;
+        }
+
+        for ( Map.Entry<String, Document> entry : journalForComparison.journalData.entrySet() ) {
+            if ( !this.journalData.containsKey(entry.getKey()) ) {
+                return false;
+            }
+            if ( !this.search(entry.getKey()).equals(entry.getValue().outerHtml()) ) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
