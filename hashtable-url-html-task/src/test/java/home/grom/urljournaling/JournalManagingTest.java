@@ -106,8 +106,8 @@ public class JournalManagingTest {
 
     @Test
     public void journalEqualsAndHashCodeMethodsDuringComparisonWorkCorrectly() {
-        String firstURL = "https://www.google.com/";
-        String secondURL = "https://www.youtube.com/";
+        String firstURL = "https://se.ifmo.ru/~korg/";
+        String secondURL = "https://www.york.ac.uk/teaching/cws/wws/webpage1.html";
 
         URLHTMLVisitJournal firstTestJournal = new URLHTMLVisitJournal();
         URLHTMLVisitJournal secondTestJournal = new URLHTMLVisitJournal();
