@@ -4,9 +4,10 @@ import org.apache.commons.validator.routines.UrlValidator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import javax.print.Doc;
 import java.io.IOException;
-import java.util.*;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
