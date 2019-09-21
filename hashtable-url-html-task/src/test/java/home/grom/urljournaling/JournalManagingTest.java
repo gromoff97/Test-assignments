@@ -105,7 +105,7 @@ public class JournalManagingTest {
     }
 
     @Test
-    public void journalEqualsAndHashCodeMethodsDuringComparisonWorkCorrectly() {
+    public void journalEqualsMethodWorksCorrectly() {
         String firstURL = "https://se.ifmo.ru/~korg/";
         String secondURL = "https://www.york.ac.uk/teaching/cws/wws/webpage1.html";
 
@@ -121,7 +121,6 @@ public class JournalManagingTest {
         secondTestJournal.registerVisit(firstURL);
 
         Assert.assertEquals(firstTestJournal, secondTestJournal);
-        Assert.assertEquals(firstTestJournal.hashCode(), secondTestJournal.hashCode());
     }
 
 }
