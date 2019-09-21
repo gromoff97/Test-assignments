@@ -123,4 +123,9 @@ public class JournalManagingTest {
         Assert.assertEquals(firstTestJournal, secondTestJournal);
     }
 
+    @Test
+    public void journalHashCodeMethodWorksCorrectly() {
+
+    }
+
 }
