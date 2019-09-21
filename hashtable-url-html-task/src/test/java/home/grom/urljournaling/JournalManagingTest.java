@@ -64,7 +64,7 @@ public class JournalManagingTest {
         testJournal.registerVisit(url);
 
         String HTMLContent = testJournal.search(url);
-        Assert.assertFalse(HTMLContent == null);
+        Assert.assertNotNull(HTMLContent);
         Assert.assertFalse(HTMLContent.trim().isEmpty());
     }
 
