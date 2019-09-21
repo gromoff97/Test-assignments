@@ -125,7 +125,23 @@ public class JournalManagingTest {
 
     @Test
     public void journalHashCodeMethodWorksCorrectly() {
+        String firstURL = "https://se.ifmo.ru/~korg/";
+        String secondURL = "https://www.york.ac.uk/teaching/cws/wws/webpage1.html";
 
+        URLHTMLVisitJournal firstTestJournal = new URLHTMLVisitJournal();
+        URLHTMLVisitJournal secondTestJournal = new URLHTMLVisitJournal();
+
+        Assert.assertEquals(firstTestJournal.hashCode(), secondTestJournal.hashCode());
+
+        firstTestJournal.registerVisit(firstURL);
+        secondTestJournal.registerVisit(firstURL);
+
+        Assert.assertEquals(firstTestJournal.hashCode(), secondTestJournal.hashCode());
+
+        firstTestJournal.registerVisit(secondURL);
+        secondTestJournal.registerVisit(secondURL);
+
+        Assert.assertEquals(firstTestJournal.hashCode(), secondTestJournal.hashCode());
     }
 
 }
