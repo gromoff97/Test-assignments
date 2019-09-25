@@ -125,7 +125,6 @@ public class JournalManagingTest {
     }
 
     @Test
-    @Ignore("Implementation of 'hashCode' is not finished yet.")
     public void journalHashCodeMethodWorksCorrectly() {
         String firstURL = "https://se.ifmo.ru/~korg/";
         String secondURL = "https://www.york.ac.uk/teaching/cws/wws/webpage1.html";
