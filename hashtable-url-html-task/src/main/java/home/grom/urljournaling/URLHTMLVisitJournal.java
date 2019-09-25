@@ -25,10 +25,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class URLHTMLVisitJournal  {
 
     /**
-     * The map with entries containing URL-link as {@link String}
-     * and instance of {@link Document}-class from {@link Jsoup}-library
+     * The map with entries containing URL-link and its HTML-code
      */
-    private Map<String, Document> journalData;
+    private Map<String, String> journalData;
 
     /**
      * Sets limit of timeout while connecting to URLs
@@ -110,7 +109,7 @@ public class URLHTMLVisitJournal  {
             return false;
         }
 
-        this.journalData.put(newURL, newDoc);
+        this.journalData.put(newURL, newDoc.outerHtml());
         return true;
     }
 
@@ -138,8 +137,7 @@ public class URLHTMLVisitJournal  {
             throw new IllegalArgumentException("Non-blank HTML content is required.");
         }
 
-        Document newDoc = Jsoup.parse(htmlContent);
-        this.journalData.put(newURL,newDoc);
+        this.journalData.put(newURL, Jsoup.parse(htmlContent).outerHtml());
         return true;
     }
 
@@ -160,12 +158,7 @@ public class URLHTMLVisitJournal  {
             throw new IllegalArgumentException("Valid URL address is required.");
         }
 
-        Document resultDoc = this.journalData.get(url);
-        if ( null == resultDoc ) {
-            return null;
-        }
-
-        return resultDoc.outerHtml();
+        return this.journalData.get(url);
     }
 
     /**
@@ -200,25 +193,7 @@ public class URLHTMLVisitJournal  {
             return false;
         }
 
-        URLHTMLVisitJournal journalForComparison = (URLHTMLVisitJournal) obj;
-        if ( this.getSize() != journalForComparison.getSize() ) {
-            return false;
-        }
-
-        if ( this.isEmpty() ) {
-            return true;
-        }
-
-        for ( Map.Entry<String, Document> entry : journalForComparison.journalData.entrySet() ) {
-            if ( !this.journalData.containsKey(entry.getKey()) ) {
-                return false;
-            }
-            if ( !this.search(entry.getKey()).equals(entry.getValue().outerHtml()) ) {
-                return false;
-            }
-        }
-
-        return true;
+        return this.journalData.equals(((URLHTMLVisitJournal) obj).journalData);
     }
 
     @Override
