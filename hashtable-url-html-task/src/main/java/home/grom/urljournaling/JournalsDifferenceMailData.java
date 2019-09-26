@@ -11,7 +11,7 @@ public final class JournalsDifferenceMailData {
 
     public JournalsDifferenceMailData( URLHTMLVisitJournal oldJournal, URLHTMLVisitJournal freshJournal ) {
         if ( null == oldJournal || null == freshJournal ) {
-            throw new IllegalArgumentException("Non-null references of journals are required");
+            throw new IllegalArgumentException("Non-null references of journals are required.");
         }
 
         if ( oldJournal == freshJournal ) {

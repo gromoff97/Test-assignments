@@ -21,7 +21,7 @@ public final class JournalComparisonNotifier {
 
     private static boolean isValidEmailAddress(final String email){
         if ( null == email ) {
-            throw new IllegalArgumentException("Email address is not supposed to reference to null");
+            throw new IllegalArgumentException("Email address is not supposed to reference to null.");
         }
         return EmailValidator.getInstance().isValid(email);
     }
@@ -58,7 +58,7 @@ public final class JournalComparisonNotifier {
         Email email = EmailBuilder.startingBlank()
                 .from("Journal-comparison notifier", "notificationservice@redsys.net")
                 .to(fullName, emailAddress)
-                .withSubject("One more journal-comparison notifier's notification")
+                .withSubject("One more journal-comparison notifier's notification.")
                 .withPlainText(mailContent)
                 .buildEmail();
 
