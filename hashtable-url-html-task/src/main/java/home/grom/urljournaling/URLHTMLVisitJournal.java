@@ -96,7 +96,7 @@ public class URLHTMLVisitJournal  {
      * @throws  IllegalArgumentException
      *          if URL-argument is invalid.
      */
-    public boolean registerVisit( final String newURL ){
+    public final boolean registerVisit( final String newURL ){
         if ( !isValidURL(newURL) ){
             throw new IllegalArgumentException("Valid URL address is required.");
         }
