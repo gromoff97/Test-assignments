@@ -19,13 +19,6 @@ public final class JournalComparisonNotifier {
         throw new AssertionError("Instance of this class is not supposed to be created because it's utility class.");
     }
 
-    private static boolean isValidEmailAddress(final String email){
-        if ( null == email ) {
-            throw new IllegalArgumentException("Email address is not supposed to reference to null.");
-        }
-        return EmailValidator.getInstance().isValid(email);
-    }
-
     private static String createForm( JournalsDifferenceMailData mailData, final String fullName){
         if ( null == mailData ) {
             throw new IllegalArgumentException("Non-null reference to mail data is required.");
@@ -46,7 +39,7 @@ public final class JournalComparisonNotifier {
     }
 
     public static void sendComparisonResults( JournalsDifferenceMailData mailData, final String emailAddress, final String fullName, Mailer mailer) {
-        if ( !isValidEmailAddress(emailAddress) ) {
+        if ( !EmailValidator.getInstance().isValid(emailAddress) ) {
             throw new IllegalArgumentException("Valid email is required.");
         }
 
