@@ -22,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @see     ConcurrentHashMap
  * @author  <a href="mailto:gromoff97@mail.ru">Anton Gromov</a>
  */
-public class URLHTMLVisitJournal  {
+public class WebJournal {
 
     /**
      * The map with entries containing URL-link and its HTML-code
@@ -37,7 +37,7 @@ public class URLHTMLVisitJournal  {
     /**
      * Creates empty journal.
      */
-    public URLHTMLVisitJournal() {
+    public WebJournal() {
         this.journalData = new ConcurrentHashMap<>();
     }
 
@@ -48,7 +48,7 @@ public class URLHTMLVisitJournal  {
      * @param   urlSet
      *          set of links.
      */
-    public URLHTMLVisitJournal( Set<String> urlSet ){
+    public WebJournal(Set<String> urlSet ){
         if ( null == urlSet ){
             throw new IllegalArgumentException("Referencing Set of urls to non-null instance is required.");
         }
@@ -189,11 +189,11 @@ public class URLHTMLVisitJournal  {
             return true;
         }
 
-        if ( !(obj instanceof URLHTMLVisitJournal) ) {
+        if ( !(obj instanceof WebJournal) ) {
             return false;
         }
 
-        return this.journalData.equals(((URLHTMLVisitJournal) obj).journalData);
+        return this.journalData.equals(((WebJournal) obj).journalData);
     }
 
     @Override

@@ -2,19 +2,18 @@ package home.grom.urljournaling;
 
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 public class JournalManagingTest {
 
     @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Nn]ull.*$")
     public void throwsExceptionIfTriesToCreateJournalInstanceWithNullURLSet() {
-        new URLHTMLVisitJournal(null);
+        new WebJournal(null);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Nn]ull.*$")
     public void throwsExceptionIfTriesToRegisterNulledURL() {
-        URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
+        WebJournal testJournal = new WebJournal();
         testJournal.registerVisit(null);
     }
 
@@ -30,7 +29,7 @@ public class JournalManagingTest {
     @Test(dataProvider = "BlankContent", expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Bb]lank.*$")
     public void throwsExceptionIfTriesToRegisterValidURLWithBlankHTML(String blankString) {
         String validURL = "https://grafana.com/";
-        URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
+        WebJournal testJournal = new WebJournal();
         testJournal.registerVisit(validURL, blankString);
     }
 
@@ -46,13 +45,13 @@ public class JournalManagingTest {
 
     @Test(dataProvider = "InvalidURLs", expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Vv]alid.*$")
     public void throwsExceptionIfTriesToRgisterInvalidURL( String url ) {
-        URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
+        WebJournal testJournal = new WebJournal();
         testJournal.registerVisit(url);
     }
 
     @Test
     public void journalAfterRegisteringVisitIsNotEmpty() {
-        URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
+        WebJournal testJournal = new WebJournal();
         Assert.assertTrue(testJournal.isEmpty());
         testJournal.registerVisit("https://stackoverflow.com/");
         Assert.assertFalse(testJournal.isEmpty());
@@ -61,7 +60,7 @@ public class JournalManagingTest {
     @Test
     public void HTMLContentForURLAfterRegisteringVisitIsNotBlank() {
         String url = "https://www.google.com/";
-        URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
+        WebJournal testJournal = new WebJournal();
         testJournal.registerVisit(url);
 
         String HTMLContent = testJournal.search(url);
@@ -71,7 +70,7 @@ public class JournalManagingTest {
 
     @Test
     public void journalSizeAfterRegisteringIsCorrect() {
-        URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
+        WebJournal testJournal = new WebJournal();
         Assert.assertEquals(testJournal.getSize(), 0);
 
         testJournal.registerVisit("https://habr.com/");
@@ -84,7 +83,7 @@ public class JournalManagingTest {
     @Test
     public void journalAfterRegisteringTheSameURLHasNoDuplicates() {
         String url = "https://yandex.ru/";
-        URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
+        WebJournal testJournal = new WebJournal();
         testJournal.registerVisit(url);
         testJournal.registerVisit(url);
         Assert.assertEquals(testJournal.getSize(), 1);
@@ -93,14 +92,14 @@ public class JournalManagingTest {
     @Test(expectedExceptions = UnsupportedOperationException.class)
     public void throwsExceptionIfTriesToAddElementToJournalKeySet() {
         String url = "https://www.youtube.com/";
-        URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
+        WebJournal testJournal = new WebJournal();
         testJournal.getVisitedURLSet().add(url);
     }
 
     @Test(expectedExceptions = UnsupportedOperationException.class)
     public void throwsExceptionIfTriesToRemoveElementFromJournalKeySet() {
         String url = "https://www.google.com/";
-        URLHTMLVisitJournal testJournal = new URLHTMLVisitJournal();
+        WebJournal testJournal = new WebJournal();
         testJournal.registerVisit(url);
         testJournal.getVisitedURLSet().remove(url);
     }
@@ -110,8 +109,8 @@ public class JournalManagingTest {
         String firstURL = "https://se.ifmo.ru/~korg/";
         String secondURL = "https://www.york.ac.uk/teaching/cws/wws/webpage1.html";
 
-        URLHTMLVisitJournal firstTestJournal = new URLHTMLVisitJournal();
-        URLHTMLVisitJournal secondTestJournal = new URLHTMLVisitJournal();
+        WebJournal firstTestJournal = new WebJournal();
+        WebJournal secondTestJournal = new WebJournal();
 
         Assert.assertEquals(firstTestJournal, secondTestJournal);
 
@@ -129,8 +128,8 @@ public class JournalManagingTest {
         String firstURL = "https://se.ifmo.ru/~korg/";
         String secondURL = "https://www.york.ac.uk/teaching/cws/wws/webpage1.html";
 
-        URLHTMLVisitJournal firstTestJournal = new URLHTMLVisitJournal();
-        URLHTMLVisitJournal secondTestJournal = new URLHTMLVisitJournal();
+        WebJournal firstTestJournal = new WebJournal();
+        WebJournal secondTestJournal = new WebJournal();
 
         Assert.assertEquals(firstTestJournal.hashCode(), secondTestJournal.hashCode());
 

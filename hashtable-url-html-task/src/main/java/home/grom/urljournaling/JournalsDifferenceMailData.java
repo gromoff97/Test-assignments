@@ -9,7 +9,7 @@ public final class JournalsDifferenceMailData {
     private Set<String> uniqueFreshURLs;
     private Set<String> intersectedURLsWithModifiedHTML;
 
-    public JournalsDifferenceMailData( URLHTMLVisitJournal oldJournal, URLHTMLVisitJournal freshJournal ) {
+    public JournalsDifferenceMailData(WebJournal oldJournal, WebJournal freshJournal ) {
         if ( null == oldJournal || null == freshJournal ) {
             throw new IllegalArgumentException("Non-null references of journals are required.");
         }
@@ -37,7 +37,7 @@ public final class JournalsDifferenceMailData {
         return tmpSet;
     }
 
-    private static Set<String> getIntersectedURLsWithDifferentHTML( URLHTMLVisitJournal firstJournal, URLHTMLVisitJournal secondJournal ) {
+    private static Set<String> getIntersectedURLsWithDifferentHTML(WebJournal firstJournal, WebJournal secondJournal ) {
         Set<String> tmpSet = new HashSet<>(firstJournal.getVisitedURLSet());
 
         tmpSet.retainAll(secondJournal.getVisitedURLSet());
