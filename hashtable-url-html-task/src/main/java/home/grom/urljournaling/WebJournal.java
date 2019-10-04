@@ -73,14 +73,8 @@ public class WebJournal {
      *
      * @return  {@code true} if URL is valid,
      *          otherwise {@code false}.
-     *
-     * @throws  IllegalArgumentException
-     *          if URL-argument references to null.
      */
     private static boolean isValidURL( final String url ){
-        if ( null == url ){
-            throw new IllegalArgumentException("Referencing URL to non-null instance is required.");
-        }
         return UrlValidator.getInstance().isValid(url);
     }
 
