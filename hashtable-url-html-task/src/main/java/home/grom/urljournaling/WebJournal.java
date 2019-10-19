@@ -45,8 +45,8 @@ public class WebJournal {
      * @param   urlLinks
      *          web-links.
      */
-    public WebJournal( Iterable<String> urlLinks ){
-        if ( null == urlLinks ){
+    public WebJournal( Iterable<String> urlLinks ) {
+        if ( null == urlLinks ) {
             throw new IllegalArgumentException("Referencing to non-null instance is required.");
         }
         this.journalData = new ConcurrentHashMap<>();
@@ -62,7 +62,7 @@ public class WebJournal {
      * @return  {@code true} if URL is valid,
      *          otherwise {@code false}.
      */
-    private static boolean isValidURL( final String url ){
+    private static boolean isValidURL( final String url ) {
         return UrlValidator.getInstance().isValid(url);
     }
 
@@ -78,8 +78,8 @@ public class WebJournal {
      * @throws  IllegalArgumentException
      *          if URL-argument is invalid.
      */
-    public final boolean registerVisit( final String newURL ){
-        if ( !isValidURL(newURL) ){
+    public final boolean registerVisit( final String newURL ) {
+        if ( !isValidURL(newURL) ) {
             throw new IllegalArgumentException("Valid URL address is required.");
         }
 
@@ -110,12 +110,12 @@ public class WebJournal {
      * @throws  IllegalArgumentException
      *          if URL-argument is invalid or HTML-content is blank or references to null.
      */
-    public boolean registerVisit( final String newURL, final String htmlContent ){
-        if ( !isValidURL(newURL) ){
+    public boolean registerVisit( final String newURL, final String htmlContent ) {
+        if ( !isValidURL(newURL) ) {
             throw new IllegalArgumentException("Valid URL address is required.");
         }
 
-        if ( null == htmlContent || htmlContent.trim().isEmpty() ){
+        if ( null == htmlContent || htmlContent.trim().isEmpty() ) {
             throw new IllegalArgumentException("Non-blank HTML content is required.");
         }
 
@@ -136,7 +136,7 @@ public class WebJournal {
      *          if URL-argument is invalid.
      */
     public String search( final String url ) {
-        if ( !isValidURL(url) ){
+        if ( !isValidURL(url) ) {
             throw new IllegalArgumentException("Valid URL address is required.");
         }
 
@@ -146,14 +146,14 @@ public class WebJournal {
     /**
      * @return the unmodifiable set of URL from this journal
      */
-    public Set<String> getVisitedURLSet(){
+    public Set<String> getVisitedURLSet() {
         return Collections.unmodifiableSet(this.journalData.keySet());
     }
 
     /**
      * @return the size of this journal.
      */
-    public int getSize(){
+    public int getSize() {
         return this.journalData.size();
     }
 
@@ -161,7 +161,7 @@ public class WebJournal {
      * @return  {@code true} if this journal doesn't contain any entry,
      *          otherwise {@code false}.
      */
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return 0 == getSize();
     }
 
