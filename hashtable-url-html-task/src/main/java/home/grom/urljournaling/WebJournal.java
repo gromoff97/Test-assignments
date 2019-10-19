@@ -62,7 +62,7 @@ public class WebJournal {
      * @return  {@code true} if URL is valid,
      *          otherwise {@code false}.
      */
-    private static boolean isValidURL( final String url ) {
+    private static boolean isValidURL( String url ) {
         return UrlValidator.getInstance().isValid(url);
     }
 
@@ -78,7 +78,7 @@ public class WebJournal {
      * @throws  IllegalArgumentException
      *          if URL-argument is invalid.
      */
-    public final boolean registerVisit( final String newURL ) {
+    public final boolean registerVisit( String newURL ) {
         if ( !isValidURL(newURL) ) {
             throw new IllegalArgumentException("Valid URL address is required.");
         }
@@ -110,7 +110,7 @@ public class WebJournal {
      * @throws  IllegalArgumentException
      *          if URL-argument is invalid or HTML-content is blank or references to null.
      */
-    public boolean registerVisit( final String newURL, final String htmlContent ) {
+    public boolean registerVisit( String newURL, String htmlContent ) {
         if ( !isValidURL(newURL) ) {
             throw new IllegalArgumentException("Valid URL address is required.");
         }
@@ -135,7 +135,7 @@ public class WebJournal {
      * @throws  IllegalArgumentException
      *          if URL-argument is invalid.
      */
-    public String search( final String url ) {
+    public String search( String url ) {
         if ( !isValidURL(url) ) {
             throw new IllegalArgumentException("Valid URL address is required.");
         }
