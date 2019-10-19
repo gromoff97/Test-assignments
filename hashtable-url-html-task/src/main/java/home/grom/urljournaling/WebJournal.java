@@ -49,12 +49,8 @@ public class WebJournal {
         if ( null == urlLinks ){
             throw new IllegalArgumentException("Referencing to non-null instance is required.");
         }
-
         this.journalData = new ConcurrentHashMap<>();
-
-        for ( String url : urlLinks ){
-            this.registerVisit(url);
-        }
+        urlLinks.forEach(this::registerVisit);
     }
 
     /**
