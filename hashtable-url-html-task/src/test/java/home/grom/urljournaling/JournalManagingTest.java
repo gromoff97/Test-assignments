@@ -11,7 +11,7 @@ public class JournalManagingTest {
         new WebJournal(null);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Nn]ull.*$")
+    @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Vv]alid.*$")
     public void throwsExceptionIfTriesToRegisterNulledURL() {
         WebJournal testJournal = new WebJournal();
         testJournal.registerVisit(null);
