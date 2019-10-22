@@ -5,9 +5,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -42,25 +40,19 @@ public class WebJournal {
     }
 
     /**
-     * Creates journal based on URLs provided in its parameter,
-     * downloads HTML-codes for each URL during {@link Set} iterating.
+     * Creates journal based on URLs provided in its parameter.
      *
-     * @param   urlSet
-     *          set of links.
+     * @param   urlLinks
+     *          web-links.
      */
-    public WebJournal(Set<String> urlSet ){
-        if ( null == urlSet ){
-            throw new IllegalArgumentException("Referencing Set of urls to non-null instance is required.");
+    public WebJournal( Iterable<String> urlLinks ){
+        if ( null == urlLinks ){
+            throw new IllegalArgumentException("Referencing to non-null instance is required.");
         }
 
         this.journalData = new ConcurrentHashMap<>();
 
-        // "Empty Set" means "Empty Map"
-        if ( urlSet.isEmpty() ){
-            return;
-        }
-
-        for ( String url : urlSet ){
+        for ( String url : urlLinks ){
             this.registerVisit(url);
         }
     }
