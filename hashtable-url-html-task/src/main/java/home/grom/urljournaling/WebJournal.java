@@ -45,8 +45,8 @@ public class WebJournal {
      * @param   urlLinks
      *          web-links.
      */
-    public WebJournal( Iterable<String> urlLinks ) {
-        if ( null == urlLinks ) {
+    public WebJournal(Iterable<String> urlLinks) {
+        if (null == urlLinks) {
             throw new IllegalArgumentException("Referencing to non-null instance is required.");
         }
         this.journalData = new ConcurrentHashMap<>();
@@ -62,7 +62,7 @@ public class WebJournal {
      * @return  {@code true} if URL is valid,
      *          otherwise {@code false}.
      */
-    private static boolean isValidURL( String url ) {
+    private static boolean isValidURL(String url) {
         return UrlValidator.getInstance().isValid(url);
     }
 
@@ -78,8 +78,8 @@ public class WebJournal {
      * @throws  IllegalArgumentException
      *          if URL-argument is invalid.
      */
-    public final boolean registerVisit( String newURL ) {
-        if ( !isValidURL(newURL) ) {
+    public final boolean registerVisit(String newURL) {
+        if (!isValidURL(newURL)) {
             throw new IllegalArgumentException("Valid URL address is required.");
         }
 
@@ -110,12 +110,12 @@ public class WebJournal {
      * @throws  IllegalArgumentException
      *          if URL-argument is invalid or HTML-content is blank or references to null.
      */
-    public boolean registerVisit( String newURL, String htmlContent ) {
-        if ( !isValidURL(newURL) ) {
+    public boolean registerVisit(String newURL, String htmlContent) {
+        if (!isValidURL(newURL)) {
             throw new IllegalArgumentException("Valid URL address is required.");
         }
 
-        if ( null == htmlContent || htmlContent.trim().isEmpty() ) {
+        if (null == htmlContent || htmlContent.trim().isEmpty()) {
             throw new IllegalArgumentException("Non-blank HTML content is required.");
         }
 
@@ -135,8 +135,8 @@ public class WebJournal {
      * @throws  IllegalArgumentException
      *          if URL-argument is invalid.
      */
-    public String search( String url ) {
-        if ( !isValidURL(url) ) {
+    public String search(String url) {
+        if (!isValidURL(url)) {
             throw new IllegalArgumentException("Valid URL address is required.");
         }
 
@@ -166,12 +166,12 @@ public class WebJournal {
     }
 
     @Override
-    public boolean equals( Object obj ) {
-        if ( obj == this ) {
+    public boolean equals(Object obj) {
+        if (obj == this) {
             return true;
         }
 
-        if ( !(obj instanceof WebJournal) ) {
+        if (!(obj instanceof WebJournal)) {
             return false;
         }
 
