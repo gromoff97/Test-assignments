@@ -9,12 +9,9 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * This class is based on a "weak" decorator pattern
- * ( i.e. this class does not implements it's main attribute's interface ).
- *
- * It consists of web-journal represented as a
- * class implementing {@link Map}-interface ( i.e. {@link ConcurrentHashMap} )
- * and methods manipulating its state ( i.e. creating and reading/searching )
+ * This class consists of web-journal represented as a
+ * class implementing {@link Map}-interface (i.e. {@link ConcurrentHashMap})
+ * and methods manipulating its state (i.e. creating and reading/searching).
  *
  * @see     Map
  * @see     ConcurrentHashMap
@@ -161,16 +158,16 @@ public class WebPageJournal {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
+    public boolean equals(Object that) {
+        if (that == this) {
             return true;
         }
 
-        if (!(obj instanceof WebPageJournal)) {
+        if (!(that instanceof WebPageJournal)) {
             return false;
         }
 
-        return this.journalData.equals(((WebPageJournal) obj).journalData);
+        return this.journalData.equals(((WebPageJournal) that).journalData);
     }
 
     @Override
