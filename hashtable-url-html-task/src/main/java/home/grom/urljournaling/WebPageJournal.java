@@ -18,23 +18,18 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @see     Map
  * @see     ConcurrentHashMap
+ *
  * @author  <a href="mailto:gromoff97@mail.ru">Anton Gromov</a>
  */
 public class WebPageJournal {
 
-    /**
-     * The map with entries containing URL-link and its HTML-code
-     */
+    /** The map with entries containing URL-link and its HTML-code. */
     private Map<String, String> journalData;
 
-    /**
-     * Sets limit of timeout while connecting to URLs
-     */
+    /** Sets limit of timeout while connecting to URL. */
     private static final int JSOUP_TIMEOUT = 20_000;
 
-    /**
-     * Creates empty journal.
-     */
+    /** Creates empty journal. */
     public WebPageJournal() {
         this.journalData = new ConcurrentHashMap<>();
     }
