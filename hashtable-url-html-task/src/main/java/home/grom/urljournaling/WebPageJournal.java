@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @see     ConcurrentHashMap
  * @author  <a href="mailto:gromoff97@mail.ru">Anton Gromov</a>
  */
-public class WebJournal {
+public class WebPageJournal {
 
     /**
      * The map with entries containing URL-link and its HTML-code
@@ -35,7 +35,7 @@ public class WebJournal {
     /**
      * Creates empty journal.
      */
-    public WebJournal() {
+    public WebPageJournal() {
         this.journalData = new ConcurrentHashMap<>();
     }
 
@@ -45,7 +45,7 @@ public class WebJournal {
      * @param   urlLinks
      *          web-links.
      */
-    public WebJournal(Iterable<String> urlLinks) {
+    public WebPageJournal(Iterable<String> urlLinks) {
         if (null == urlLinks) {
             throw new IllegalArgumentException("Referencing to non-null instance is required.");
         }
@@ -171,11 +171,11 @@ public class WebJournal {
             return true;
         }
 
-        if (!(obj instanceof WebJournal)) {
+        if (!(obj instanceof WebPageJournal)) {
             return false;
         }
 
-        return this.journalData.equals(((WebJournal) obj).journalData);
+        return this.journalData.equals(((WebPageJournal) obj).journalData);
     }
 
     @Override
