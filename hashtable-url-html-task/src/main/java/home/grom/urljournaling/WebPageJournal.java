@@ -163,11 +163,11 @@ public class WebPageJournal {
             return true;
         }
 
-        if (!(that instanceof WebPageJournal)) {
-            return false;
+        if (that instanceof WebPageJournal) {
+            return this.journalData.equals(((WebPageJournal) that).journalData);
         }
 
-        return this.journalData.equals(((WebPageJournal) that).journalData);
+        return false;
     }
 
     @Override
