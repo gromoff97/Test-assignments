@@ -59,7 +59,7 @@ public class WebPageJournal {
     }
 
     /**
-     * Gets HTML-content from entered URL and creates new entry in journal.
+     * Gets HTML-content from entered URL automatically and creates new entry in journal.
      *
      * @param   newURL
      *          contains URL of some web-page.
