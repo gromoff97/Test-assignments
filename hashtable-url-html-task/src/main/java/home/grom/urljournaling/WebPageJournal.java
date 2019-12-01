@@ -7,13 +7,14 @@ import org.jsoup.nodes.Document;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * This class consists of web-journal represented as a
- * class implementing {@link Map}-interface (i.e. {@link ConcurrentHashMap})
+ * class implementing {@link ConcurrentMap}-interface (i.e. {@link ConcurrentHashMap})
  * and methods manipulating its state (i.e. creating and reading/searching).
  *
- * @see     Map
+ * @see     ConcurrentMap
  * @see     ConcurrentHashMap
  *
  * @author  <a href="mailto:gromoff97@mail.ru">Anton Gromov</a>
@@ -21,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class WebPageJournal {
 
     /** The map with entries containing URL-link and its HTML-code. */
-    private Map<String, String> journalData;
+    private ConcurrentMap<String, String> journalData;
 
     /** Sets limit of timeout while connecting to URL. */
     private static final int JSOUP_TIMEOUT = 20_000;
@@ -58,7 +59,7 @@ public class WebPageJournal {
         return UrlValidator.getInstance().isValid(url);
     }
 
-    /**
+    /** 
      * Gets HTML-content from entered URL automatically and creates new entry in journal.
      *
      * @param   newURL
