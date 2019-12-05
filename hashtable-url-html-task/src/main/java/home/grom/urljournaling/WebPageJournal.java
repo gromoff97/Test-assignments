@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * This class consists of web-journal represented as a
+ * Consists of web-journal represented as a
  * class implementing {@link ConcurrentMap}-interface (i.e. {@link ConcurrentHashMap})
  * and methods manipulating its state (i.e. creating and reading/searching).
  *
@@ -123,7 +123,7 @@ public class WebPageJournal {
      *          URL of page.
      *
      * @return  HTML-content for searched URL
-     *          or null if page with this URL is not found.
+     *          or null if page with passed URL is not found.
      *
      * @throws  IllegalArgumentException
      *          if URL-argument is invalid.
@@ -137,21 +137,21 @@ public class WebPageJournal {
     }
 
     /**
-     * @return the unmodifiable set of URL from this journal
+     * @return the unmodifiable set of URL from journal
      */
     public Set<String> getVisitedURLSet() {
         return Collections.unmodifiableSet(this.journalData.keySet());
     }
 
     /**
-     * @return the size of this journal.
+     * @return the size of journal.
      */
     public int getSize() {
         return this.journalData.size();
     }
 
     /**
-     * @return  {@code true} if this journal doesn't contain any entry,
+     * @return  {@code true} if journal doesn't contain any entry,
      *          otherwise {@code false}.
      */
     public boolean isEmpty() {
