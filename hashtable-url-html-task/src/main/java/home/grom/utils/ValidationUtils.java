@@ -9,4 +9,8 @@ public final class ValidationUtils {
             throw new IllegalArgumentException(exceptionMessage);
         return obj;
     }
+
+    public static <T> T requireNonNull(T obj) {
+        return requireNonNull(obj, NULL_OBJ_DEFAULT_MESSAGE);
+    }
 }
