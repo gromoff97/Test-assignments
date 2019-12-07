@@ -8,6 +8,10 @@ public final class ValidationUtils {
     private static final String BLANK_STRING_DEFAULT_MESSAGE = "Non-blank String's instance is required.";
     private static final String INVALID_URL_DEFAULT_MESSAGE = "Valid URL-address is required.";
 
+    private ValidationUtils() {
+        throw new AssertionError("Instance creation is not allowed here because this class is utility-class.");
+    }
+
     public static <T> T requireNonNull(T obj, String exceptionMessage) {
         if (obj == null)
             throw new IllegalArgumentException(exceptionMessage);
