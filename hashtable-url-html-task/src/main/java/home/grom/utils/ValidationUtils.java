@@ -13,4 +13,10 @@ public final class ValidationUtils {
     public static <T> T requireNonNull(T obj) {
         return requireNonNull(obj, NULL_OBJ_DEFAULT_MESSAGE);
     }
+
+    public static String requireNonBlank(String str, String exceptionMessage) {
+        if (str == null || str.trim().isEmpty())
+            throw new IllegalArgumentException(exceptionMessage);
+        return str;
+    }
 }
