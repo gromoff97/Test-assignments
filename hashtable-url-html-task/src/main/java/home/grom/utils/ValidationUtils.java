@@ -6,6 +6,7 @@ public final class ValidationUtils {
 
     private static final String NULL_OBJ_DEFAULT_MESSAGE = "Referencing to non-null instance is required.";
     private static final String BLANK_STRING_DEFAULT_MESSAGE = "Non-blank String's instance is required.";
+    private static final String INVALID_URL_DEFAULT_MESSAGE = "Valid URL-address is required.";
 
     public static <T> T requireNonNull(T obj, String exceptionMessage) {
         if (obj == null)
@@ -25,6 +26,12 @@ public final class ValidationUtils {
 
     public static String requireNonBlank(String str) {
         return requireNonBlank(str, BLANK_STRING_DEFAULT_MESSAGE);
+    }
+
+    public static String requireValidURL(String url, String exceptionMessage) {
+        if (!isValidURL(url))
+            throw new IllegalArgumentException(exceptionMessage);
+        return url;
     }
 
     /**
