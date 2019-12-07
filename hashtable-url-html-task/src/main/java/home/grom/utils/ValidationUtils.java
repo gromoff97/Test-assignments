@@ -20,4 +20,8 @@ public final class ValidationUtils {
             throw new IllegalArgumentException(exceptionMessage);
         return str;
     }
+
+    public static String requireNonBlank(String str) {
+        return requireNonBlank(str, BLANK_STRING_DEFAULT_MESSAGE);
+    }
 }
