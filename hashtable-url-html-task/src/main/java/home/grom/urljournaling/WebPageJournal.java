@@ -1,6 +1,5 @@
 package home.grom.urljournaling;
 
-import org.apache.commons.validator.routines.UrlValidator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -44,19 +43,6 @@ public class WebPageJournal {
         }
         this.journalData = new ConcurrentHashMap<>();
         urlLinks.forEach(this::registerVisit);
-    }
-
-    /**
-     * Validates entered URL with {@link UrlValidator#isValid(String)}
-     *
-     * @param   url
-     *          contains URL of some web-page.
-     *
-     * @return  {@code true} if URL is valid,
-     *          otherwise {@code false}.
-     */
-    private static boolean isValidURL(String url) {
-        return UrlValidator.getInstance().isValid(url);
     }
 
     /** 

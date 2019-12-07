@@ -1,5 +1,7 @@
 package home.grom.utils;
 
+import org.apache.commons.validator.routines.UrlValidator;
+
 public final class ValidationUtils {
 
     private static final String NULL_OBJ_DEFAULT_MESSAGE = "Referencing to non-null instance is required.";
@@ -23,5 +25,18 @@ public final class ValidationUtils {
 
     public static String requireNonBlank(String str) {
         return requireNonBlank(str, BLANK_STRING_DEFAULT_MESSAGE);
+    }
+
+    /**
+     * Validates entered URL with {@link UrlValidator#isValid(String)}
+     *
+     * @param   url
+     *          contains URL of some web-page.
+     *
+     * @return  {@code true} if URL is valid,
+     *          otherwise {@code false}.
+     */
+    private static boolean isValidURL(String url) {
+        return UrlValidator.getInstance().isValid(url);
     }
 }
