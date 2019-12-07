@@ -1,6 +1,5 @@
 package home.grom.urljournaling;
 
-import org.apache.commons.validator.routines.UrlValidator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -8,6 +7,8 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+
+import static home.grom.utils.ValidationUtils.*;
 
 /**
  * Consists of web-journal represented as a
@@ -39,24 +40,9 @@ public class WebPageJournal {
      *          web-links.
      */
     public WebPageJournal(Iterable<String> urlLinks) {
-        if (null == urlLinks) {
-            throw new IllegalArgumentException("Referencing to non-null instance is required.");
-        }
+        requireNonNull(urlLinks);
         this.journalData = new ConcurrentHashMap<>();
         urlLinks.forEach(this::registerVisit);
-    }
-
-    /**
-     * Validates entered URL with {@link UrlValidator#isValid(String)}
-     *
-     * @param   url
-     *          contains URL of some web-page.
-     *
-     * @return  {@code true} if URL is valid,
-     *          otherwise {@code false}.
-     */
-    private static boolean isValidURL(String url) {
-        return UrlValidator.getInstance().isValid(url);
     }
 
     /** 
@@ -72,9 +58,7 @@ public class WebPageJournal {
      *          if URL-argument is invalid.
      */
     public final boolean registerVisit(String newURL) {
-        if (!isValidURL(newURL)) {
-            throw new IllegalArgumentException("Valid URL address is required.");
-        }
+        requireValidURL(newURL);
 
         Document newDoc;
         try {
@@ -104,14 +88,8 @@ public class WebPageJournal {
      *          if URL-argument is invalid or HTML-content is blank or references to null.
      */
     public boolean registerVisit(String newURL, String htmlContent) {
-        if (!isValidURL(newURL)) {
-            throw new IllegalArgumentException("Valid URL address is required.");
-        }
-
-        if (null == htmlContent || htmlContent.trim().isEmpty()) {
-            throw new IllegalArgumentException("Non-blank HTML content is required.");
-        }
-
+        requireValidURL(newURL);
+        requireNonBlank(htmlContent, "Non-blank HTML content is required.");
         this.journalData.put(newURL, Jsoup.parse(htmlContent).outerHtml());
         return true;
     }
@@ -129,11 +107,7 @@ public class WebPageJournal {
      *          if URL-argument is invalid.
      */
     public String search(String url) {
-        if (!isValidURL(url)) {
-            throw new IllegalArgumentException("Valid URL address is required.");
-        }
-
-        return this.journalData.get(url);
+        return this.journalData.get(requireValidURL(url));
     }
 
     /**
