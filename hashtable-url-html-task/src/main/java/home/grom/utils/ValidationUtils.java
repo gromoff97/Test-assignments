@@ -34,6 +34,10 @@ public final class ValidationUtils {
         return url;
     }
 
+    public static String requireValidURL(String url) {
+        return requireValidURL(url, INVALID_URL_DEFAULT_MESSAGE);
+    }
+
     /**
      * Validates entered URL with {@link UrlValidator#isValid(String)}
      *
