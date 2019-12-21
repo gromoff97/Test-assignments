@@ -173,5 +173,27 @@ public class WebPageJournal {
         public ZonedDateTime getDate() {
             return date;
         }
+
+        @Override
+        public boolean equals(Object that) {
+            if (this == that) {
+                return true;
+            }
+
+            if (that instanceof Visit) {
+                Visit other = (Visit) that;
+                return this.url.equals(other.url) &&
+                        this.content.equals(other.content) &&
+                        this.date.equals(other.date);
+            }
+
+            return false;
+
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(url, content, date);
+        }
     }
 }
