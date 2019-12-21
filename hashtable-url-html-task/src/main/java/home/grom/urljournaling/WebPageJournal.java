@@ -149,4 +149,6 @@ public class WebPageJournal {
     public int hashCode() {
         return journalData.hashCode();
     }
+
+    public static final class Visit { }
 }
