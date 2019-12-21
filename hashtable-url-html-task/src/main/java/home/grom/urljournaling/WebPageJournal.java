@@ -4,6 +4,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
+import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -150,5 +151,27 @@ public class WebPageJournal {
         return journalData.hashCode();
     }
 
-    public static final class Visit { }
+    public static final class Visit {
+        private final String url;
+        private final String content;
+        private final ZonedDateTime date;
+
+        private Visit(String url, String content) {
+            this.url = url;
+            this.content = content;
+            this.date = ZonedDateTime.now();
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public ZonedDateTime getDate() {
+            return date;
+        }
+    }
 }
