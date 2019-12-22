@@ -157,8 +157,8 @@ public class WebPageJournal {
         private final ZonedDateTime date;
 
         private Visit(String url, String content) {
-            this.url = url;
-            this.content = content;
+            this.url = requireNonBlank(url);
+            this.content = requireNonBlank(content);
             this.date = ZonedDateTime.now();
         }
 
