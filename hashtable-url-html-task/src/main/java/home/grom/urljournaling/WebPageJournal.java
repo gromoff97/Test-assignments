@@ -156,10 +156,10 @@ public class WebPageJournal {
         private final String content;
         private final ZonedDateTime date;
 
-        private Visit(String url, String content) {
+        private Visit(String url, String content, ZonedDateTime date) {
             this.url = requireNonBlank(url);
             this.content = requireNonBlank(content);
-            this.date = ZonedDateTime.now();
+            this.date = requireNonNull(date);
         }
 
         public String getUrl() {
