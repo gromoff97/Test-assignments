@@ -63,9 +63,10 @@ public class JournalManagingTest {
         WebPageJournal testJournal = new WebPageJournal();
         testJournal.registerVisit(url);
 
-        String HTMLContent = testJournal.search(url);
-        Assert.assertNotNull(HTMLContent);
-        Assert.assertFalse(HTMLContent.trim().isEmpty());
+        boolean visitsWithBlankContentExists = testJournal.visits()
+                .anyMatch(e -> e.getContent() == null || e.getContent().trim().isEmpty());
+
+        Assert.assertFalse(visitsWithBlankContentExists);
     }
 
     @Test
