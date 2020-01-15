@@ -44,7 +44,7 @@ public class JournalManagingTest {
     }
 
     @Test(dataProvider = "InvalidURLs", expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Vv]alid.*$")
-    public void throwsExceptionIfTriesToRgisterInvalidURL( String url ) {
+    public void throwsExceptionIfTriesToRegisterInvalidURL( String url ) {
         WebPageJournal testJournal = new WebPageJournal();
         testJournal.registerVisit(url);
     }
