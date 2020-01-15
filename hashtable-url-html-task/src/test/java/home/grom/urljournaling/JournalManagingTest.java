@@ -89,21 +89,6 @@ public class JournalManagingTest {
         Assert.assertEquals(testJournal.getSize(), 1);
     }
 
-    @Test(expectedExceptions = UnsupportedOperationException.class)
-    public void throwsExceptionIfTriesToAddElementToJournalKeySet() {
-        String url = "https://www.youtube.com/";
-        WebPageJournal testJournal = new WebPageJournal();
-        testJournal.getVisitedURLSet().add(url);
-    }
-
-    @Test(expectedExceptions = UnsupportedOperationException.class)
-    public void throwsExceptionIfTriesToRemoveElementFromJournalKeySet() {
-        String url = "https://www.google.com/";
-        WebPageJournal testJournal = new WebPageJournal();
-        testJournal.registerVisit(url);
-        testJournal.getVisitedURLSet().remove(url);
-    }
-
     @Test
     public void journalEqualsMethodWorksCorrectly() {
         String firstURL = "https://se.ifmo.ru/~korg/";
