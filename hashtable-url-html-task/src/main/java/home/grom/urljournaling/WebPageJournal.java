@@ -5,33 +5,35 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.stream.Stream;
 
 import static home.grom.utils.ValidationUtils.*;
 
 /**
  * Consists of web-journal represented as a
- * class implementing {@link ConcurrentMap}-interface (i.e. {@link ConcurrentHashMap})
- * and methods manipulating its state (i.e. creating and reading/searching).
+ * class implementing {@link Queue}-interface (i.e. {@link ConcurrentLinkedQueue})
+ * and methods manipulating state of its instances (i.e. creating and reading).
  *
- * @see     ConcurrentMap
- * @see     ConcurrentHashMap
+ * @see     Queue
+ * @see     ConcurrentLinkedQueue
  *
  * @author  <a href="mailto:gromoff97@mail.ru">Anton Gromov</a>
  */
 public class WebPageJournal {
 
-    /** The map with entries containing URL-link and its HTML-code. */
-    private ConcurrentMap<String, String> journalData;
+    /** The queue with visits. */
+    private Queue<Visit> journalData;
 
     /** Sets limit of timeout while connecting to URL. */
     private static final int JSOUP_TIMEOUT = 20_000;
 
     /** Creates empty journal. */
     public WebPageJournal() {
-        this.journalData = new ConcurrentHashMap<>();
+        this.journalData = new ConcurrentLinkedQueue<>();
     }
 
     /**
@@ -42,7 +44,7 @@ public class WebPageJournal {
      */
     public WebPageJournal(Iterable<String> urlLinks) {
         requireNonNull(urlLinks);
-        this.journalData = new ConcurrentHashMap<>();
+        this.journalData = new ConcurrentLinkedQueue<>();
         urlLinks.forEach(this::registerVisit);
     }
 
@@ -69,7 +71,7 @@ public class WebPageJournal {
             return false;
         }
 
-        this.journalData.put(newURL, newDoc.outerHtml());
+        this.journalData.add(new Visit(newURL, newDoc.outerHtml(), ZonedDateTime.now()));
         return true;
     }
 
@@ -91,31 +93,15 @@ public class WebPageJournal {
     public boolean registerVisit(String newURL, String htmlContent) {
         requireValidURL(newURL);
         requireNonBlank(htmlContent, "Non-blank HTML content is required.");
-        this.journalData.put(newURL, Jsoup.parse(htmlContent).outerHtml());
+        this.journalData.add(new Visit(newURL, Jsoup.parse(htmlContent).outerHtml(), ZonedDateTime.now()));
         return true;
-    }
-
-    /**
-     * Looks for HTML-page for passed URL-argument.
-     *
-     * @param   url
-     *          URL of page.
-     *
-     * @return  HTML-content for searched URL
-     *          or null if page with passed URL is not found.
-     *
-     * @throws  IllegalArgumentException
-     *          if URL-argument is invalid.
-     */
-    public String search(String url) {
-        return this.journalData.get(requireValidURL(url));
     }
 
     /**
      * @return the unmodifiable set of URL from journal
      */
-    public Set<String> getVisitedURLSet() {
-        return Collections.unmodifiableSet(this.journalData.keySet());
+    public Stream<Visit> visits() {
+        return this.journalData.stream();
     }
 
     /**
@@ -140,7 +126,7 @@ public class WebPageJournal {
         }
 
         if (that instanceof WebPageJournal) {
-            return this.journalData.equals(((WebPageJournal) that).journalData);
+            return Arrays.equals(this.journalData.toArray(), ((WebPageJournal) that).journalData.toArray());
         }
 
         return false;
@@ -148,7 +134,7 @@ public class WebPageJournal {
 
     @Override
     public int hashCode() {
-        return journalData.hashCode();
+        return Objects.hash(this.journalData.toArray());
     }
 
     public static final class Visit {
