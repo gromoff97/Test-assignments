@@ -24,14 +24,14 @@ import static home.grom.utils.ValidationUtils.*;
 public class WebPageJournal {
 
     /** The queue with visits. */
-    private ConcurrentLinkedQueue<VisitEvent> journalData;
+    private ConcurrentLinkedQueue<VisitEvent> eventsData;
 
     /** Sets limit of timeout while connecting to URL. */
     private static final int JSOUP_TIMEOUT = 20_000;
 
     /** Creates empty journal. */
     public WebPageJournal() {
-        journalData = new ConcurrentLinkedQueue<>();
+        eventsData = new ConcurrentLinkedQueue<>();
     }
 
     /**
@@ -42,14 +42,14 @@ public class WebPageJournal {
      */
     public WebPageJournal(Iterable<String> urlLinks) {
         requireNonNull(urlLinks);
-        journalData = new ConcurrentLinkedQueue<>();
+        eventsData = new ConcurrentLinkedQueue<>();
         urlLinks.forEach(this::registerVisit);
     }
 
     public WebPageJournal(WebPageJournal originalJournal) {
         requireNonNull(originalJournal);
-        this.journalData = new ConcurrentLinkedQueue<>();
-        this.journalData.addAll(originalJournal.journalData);
+        this.eventsData = new ConcurrentLinkedQueue<>();
+        this.eventsData.addAll(originalJournal.eventsData);
     }
 
     /** 
@@ -76,7 +76,7 @@ public class WebPageJournal {
         }
 
         VisitEvent visitEvent = new VisitEvent(newURL, newDoc.outerHtml(), ZonedDateTime.now());
-        return journalData.add(visitEvent);
+        return eventsData.add(visitEvent);
     }
 
     /**
@@ -98,21 +98,21 @@ public class WebPageJournal {
         requireValidURL(newURL);
         requireNonBlank(htmlContent, "Non-blank HTML content is required.");
         VisitEvent visitEvent = new VisitEvent(newURL, Jsoup.parse(htmlContent).outerHtml(), ZonedDateTime.now());
-        return journalData.add(visitEvent);
+        return eventsData.add(visitEvent);
     }
 
     /**
      * @return the unmodifiable set of URL from journal
      */
     public Stream<VisitEvent> visits() {
-        return journalData.stream();
+        return eventsData.stream();
     }
 
     /**
      * @return the size of journal.
      */
     public int getSize() {
-        return journalData.size();
+        return eventsData.size();
     }
 
     /**
@@ -130,7 +130,7 @@ public class WebPageJournal {
         }
 
         if (that instanceof WebPageJournal) {
-            return Arrays.equals(this.journalData.toArray(), ((WebPageJournal) that).journalData.toArray());
+            return Arrays.equals(this.eventsData.toArray(), ((WebPageJournal) that).eventsData.toArray());
         }
 
         return false;
@@ -138,7 +138,7 @@ public class WebPageJournal {
 
     @Override
     public int hashCode() {
-        return Objects.hash(journalData.toArray());
+        return Objects.hash(eventsData.toArray());
     }
 
     public static final class VisitEvent {
