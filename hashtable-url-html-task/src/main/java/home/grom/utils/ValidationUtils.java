@@ -99,6 +99,11 @@ public final class ValidationUtils {
         return requireValidURL(url, INVALID_URL_DEFAULT_MESSAGE);
     }
 
+    /** Method copied from JDK 11 */
+    public static boolean isBlank(String str) {
+        return str == null || str.trim().isEmpty();
+    }
+
     /**
      * Validates entered URL with {@link UrlValidator#isValid(String)}
      *
@@ -111,4 +116,5 @@ public final class ValidationUtils {
     private static boolean isValidURL(String url) {
         return UrlValidator.getInstance().isValid(url);
     }
+
 }
