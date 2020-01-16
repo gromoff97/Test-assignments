@@ -14,19 +14,18 @@ import java.util.stream.Stream;
 import static home.grom.utils.ValidationUtils.*;
 
 /**
- * Consists of web-journal represented as a
- * class implementing {@link Queue}-interface (i.e. {@link ConcurrentLinkedQueue})
- * and methods manipulating state of its instances (i.e. creating and reading).
+ * Consists of web-journal represented as a {@link ConcurrentLinkedQueue} of
+ * {@link Visit}-instances and methods manipulating its state (i.e. creating and reading).
  *
- * @see     Queue
  * @see     ConcurrentLinkedQueue
+ * @see     Visit
  *
  * @author  <a href="mailto:gromoff97@mail.ru">Anton Gromov</a>
  */
 public class WebPageJournal {
 
     /** The queue with visits. */
-    private Queue<Visit> journalData;
+    private ConcurrentLinkedQueue<Visit> journalData;
 
     /** Sets limit of timeout while connecting to URL. */
     private static final int JSOUP_TIMEOUT = 20_000;
