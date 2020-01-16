@@ -1,5 +1,6 @@
 package home.grom.urljournaling;
 
+import home.grom.utils.ValidationUtils;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -71,7 +72,8 @@ public class JournalManagingTest {
         testJournal.registerVisit(url);
 
         boolean visitsWithBlankContentExists = testJournal.visits()
-                .anyMatch(e -> e.getContent() == null || e.getContent().trim().isEmpty());
+                .map(WebPageJournal.Visit::getContent)
+                .anyMatch(ValidationUtils::isBlank);
 
         Assert.assertFalse(visitsWithBlankContentExists);
     }
