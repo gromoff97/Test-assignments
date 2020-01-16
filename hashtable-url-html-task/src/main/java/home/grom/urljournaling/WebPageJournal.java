@@ -31,7 +31,7 @@ public class WebPageJournal {
 
     /** Creates empty journal. */
     public WebPageJournal() {
-        this.journalData = new ConcurrentLinkedQueue<>();
+        journalData = new ConcurrentLinkedQueue<>();
     }
 
     /**
@@ -42,7 +42,7 @@ public class WebPageJournal {
      */
     public WebPageJournal(Iterable<String> urlLinks) {
         requireNonNull(urlLinks);
-        this.journalData = new ConcurrentLinkedQueue<>();
+        journalData = new ConcurrentLinkedQueue<>();
         urlLinks.forEach(this::registerVisit);
     }
 
@@ -75,8 +75,8 @@ public class WebPageJournal {
             return false;
         }
 
-        this.journalData.add(new VisitEvent(newURL, newDoc.outerHtml(), ZonedDateTime.now()));
-        return true;
+        VisitEvent visitEvent = new VisitEvent(newURL, newDoc.outerHtml(), ZonedDateTime.now());
+        return journalData.add(visitEvent);
     }
 
     /**
@@ -97,22 +97,22 @@ public class WebPageJournal {
     public boolean registerVisit(String newURL, String htmlContent) {
         requireValidURL(newURL);
         requireNonBlank(htmlContent, "Non-blank HTML content is required.");
-        this.journalData.add(new VisitEvent(newURL, Jsoup.parse(htmlContent).outerHtml(), ZonedDateTime.now()));
-        return true;
+        VisitEvent visitEvent = new VisitEvent(newURL, Jsoup.parse(htmlContent).outerHtml(), ZonedDateTime.now());
+        return journalData.add(visitEvent);
     }
 
     /**
      * @return the unmodifiable set of URL from journal
      */
     public Stream<VisitEvent> visits() {
-        return this.journalData.stream();
+        return journalData.stream();
     }
 
     /**
      * @return the size of journal.
      */
     public int getSize() {
-        return this.journalData.size();
+        return journalData.size();
     }
 
     /**
@@ -138,7 +138,7 @@ public class WebPageJournal {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.journalData.toArray());
+        return Objects.hash(journalData.toArray());
     }
 
     public static final class VisitEvent {
