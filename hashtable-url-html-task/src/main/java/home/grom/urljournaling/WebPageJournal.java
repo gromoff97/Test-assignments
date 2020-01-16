@@ -48,6 +48,12 @@ public class WebPageJournal {
         urlLinks.forEach(this::registerVisit);
     }
 
+    public WebPageJournal(WebPageJournal originalJournal) {
+        requireNonNull(originalJournal);
+        this.journalData = new ConcurrentLinkedQueue<>();
+        this.journalData.addAll(originalJournal.journalData);
+    }
+
     /** 
      * Gets HTML-content from entered URL automatically and creates new entry in journal.
      *
