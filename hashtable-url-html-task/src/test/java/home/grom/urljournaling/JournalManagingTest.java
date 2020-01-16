@@ -8,7 +8,14 @@ public class JournalManagingTest {
 
     @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Nn]ull.*$")
     public void throwsExceptionIfTriesToCreateJournalInstanceWithNullURLSet() {
-        new WebPageJournal(null);
+        Iterable<String> nullRefIterable = null;
+        new WebPageJournal(nullRefIterable);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Nn]ull.*$")
+    public void throwsExceptionIfTriesToCopyJournalWithNullInstance() {
+        WebPageJournal nullRefJournal = null;
+        new WebPageJournal(nullRefJournal);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Vv]alid.*$")
@@ -82,52 +89,52 @@ public class JournalManagingTest {
     }
 
     @Test
-    public void journalAfterRegisteringTheSameURLHasNoDuplicates() {
+    public void journalAfterRegisteringTheSameURLHasDuplicates() {
         String url = "https://yandex.ru/";
         WebPageJournal testJournal = new WebPageJournal();
         testJournal.registerVisit(url);
         testJournal.registerVisit(url);
-        Assert.assertEquals(testJournal.getSize(), 1);
+        Assert.assertEquals(testJournal.getSize(), 2);
     }
 
     @Test
-    public void journalEqualsMethodWorksCorrectly() {
-        String firstURL = "https://se.ifmo.ru/~korg/";
-        String secondURL = "https://www.york.ac.uk/teaching/cws/wws/webpage1.html";
+    public void journalEqualsMethodWorksCorrectly() throws InterruptedException {
+        String url = "https://se.ifmo.ru/~korg/";
 
+        // Make sure two empty journals are equal.
         WebPageJournal firstTestJournal = new WebPageJournal();
         WebPageJournal secondTestJournal = new WebPageJournal();
-
         Assert.assertEquals(firstTestJournal, secondTestJournal);
 
-        firstTestJournal.registerVisit(firstURL);
-        firstTestJournal.registerVisit(secondURL);
+        // Make sure two journals with same url but different creation time are not equal.
+        firstTestJournal.registerVisit(url);
+        Thread.sleep(1000);
+        secondTestJournal.registerVisit(url);
+        Assert.assertNotEquals(firstTestJournal, secondTestJournal);
 
-        secondTestJournal.registerVisit(secondURL);
-        secondTestJournal.registerVisit(firstURL);
-
-        Assert.assertEquals(firstTestJournal, secondTestJournal);
+        // Make sure two identical journals are equal.
+        WebPageJournal thirdTestJournal = new WebPageJournal(secondTestJournal);
+        Assert.assertEquals(secondTestJournal, thirdTestJournal);
     }
 
     @Test
-    public void journalHashCodeMethodWorksCorrectly() {
-        String firstURL = "https://se.ifmo.ru/~korg/";
-        String secondURL = "https://www.york.ac.uk/teaching/cws/wws/webpage1.html";
+    public void journalHashCodeMethodWorksCorrectly() throws InterruptedException {
+        String url = "https://www.york.ac.uk/teaching/cws/wws/webpage1.html";
 
+        // Make sure two empty journals have the same hashcode-values.
         WebPageJournal firstTestJournal = new WebPageJournal();
         WebPageJournal secondTestJournal = new WebPageJournal();
-
         Assert.assertEquals(firstTestJournal.hashCode(), secondTestJournal.hashCode());
 
-        firstTestJournal.registerVisit(firstURL);
-        secondTestJournal.registerVisit(firstURL);
+        // Make sure two journals with same url but different creation time have different hashcode-values.
+        firstTestJournal.registerVisit(url);
+        Thread.sleep(1000);
+        secondTestJournal.registerVisit(url);
+        Assert.assertNotEquals(firstTestJournal.hashCode(), secondTestJournal.hashCode());
 
-        Assert.assertEquals(firstTestJournal.hashCode(), secondTestJournal.hashCode());
-
-        firstTestJournal.registerVisit(secondURL);
-        secondTestJournal.registerVisit(secondURL);
-
-        Assert.assertEquals(firstTestJournal.hashCode(), secondTestJournal.hashCode());
+        // Make sure two identical journals have the same hashcode-values.
+        WebPageJournal thirdTestJournal = new WebPageJournal(secondTestJournal);
+        Assert.assertEquals(secondTestJournal.hashCode(), thirdTestJournal.hashCode());
     }
 
 }
