@@ -72,7 +72,7 @@ public class JournalManagingTest {
         testJournal.registerVisit(url);
 
         boolean visitsWithBlankContentExists = testJournal.visits()
-                .map(WebPageJournal.Visit::getContent)
+                .map(WebPageJournal.VisitEvent::getContent)
                 .anyMatch(ValidationUtils::isBlank);
 
         Assert.assertFalse(visitsWithBlankContentExists);

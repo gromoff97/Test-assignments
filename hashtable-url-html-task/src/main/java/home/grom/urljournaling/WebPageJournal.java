@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Stream;
 
@@ -15,17 +14,17 @@ import static home.grom.utils.ValidationUtils.*;
 
 /**
  * Consists of web-journal represented as a {@link ConcurrentLinkedQueue} of
- * {@link Visit}-instances and methods manipulating its state (i.e. creating and reading).
+ * {@link VisitEvent}-instances and methods manipulating its state (i.e. creating and reading).
  *
  * @see     ConcurrentLinkedQueue
- * @see     Visit
+ * @see     VisitEvent
  *
  * @author  <a href="mailto:gromoff97@mail.ru">Anton Gromov</a>
  */
 public class WebPageJournal {
 
     /** The queue with visits. */
-    private ConcurrentLinkedQueue<Visit> journalData;
+    private ConcurrentLinkedQueue<VisitEvent> journalData;
 
     /** Sets limit of timeout while connecting to URL. */
     private static final int JSOUP_TIMEOUT = 20_000;
@@ -76,7 +75,7 @@ public class WebPageJournal {
             return false;
         }
 
-        this.journalData.add(new Visit(newURL, newDoc.outerHtml(), ZonedDateTime.now()));
+        this.journalData.add(new VisitEvent(newURL, newDoc.outerHtml(), ZonedDateTime.now()));
         return true;
     }
 
@@ -98,14 +97,14 @@ public class WebPageJournal {
     public boolean registerVisit(String newURL, String htmlContent) {
         requireValidURL(newURL);
         requireNonBlank(htmlContent, "Non-blank HTML content is required.");
-        this.journalData.add(new Visit(newURL, Jsoup.parse(htmlContent).outerHtml(), ZonedDateTime.now()));
+        this.journalData.add(new VisitEvent(newURL, Jsoup.parse(htmlContent).outerHtml(), ZonedDateTime.now()));
         return true;
     }
 
     /**
      * @return the unmodifiable set of URL from journal
      */
-    public Stream<Visit> visits() {
+    public Stream<VisitEvent> visits() {
         return this.journalData.stream();
     }
 
@@ -142,12 +141,13 @@ public class WebPageJournal {
         return Objects.hash(this.journalData.toArray());
     }
 
-    public static final class Visit {
+    public static final class VisitEvent {
+
         private final String url;
         private final String content;
         private final ZonedDateTime date;
 
-        private Visit(String url, String content, ZonedDateTime date) {
+        private VisitEvent(String url, String content, ZonedDateTime date) {
             this.url = requireNonBlank(url);
             this.content = requireNonBlank(content);
             this.date = requireNonNull(date);
@@ -171,8 +171,8 @@ public class WebPageJournal {
                 return true;
             }
 
-            if (that instanceof Visit) {
-                Visit other = (Visit) that;
+            if (that instanceof VisitEvent) {
+                VisitEvent other = (VisitEvent) that;
                 return this.url.equals(other.url) &&
                         this.content.equals(other.content) &&
                         this.date.equals(other.date);
