@@ -29,27 +29,44 @@ public class WebPageJournal {
     /** Sets limit of timeout while connecting to URL. */
     private static final int JSOUP_TIMEOUT = 20_000;
 
-    /** Creates empty journal. */
-    public WebPageJournal() {
+    private WebPageJournal() {
         eventsData = new ConcurrentLinkedQueue<>();
+    }
+
+    /** Creates empty journal. */
+    public static WebPageJournal empty() {
+        return new WebPageJournal();
     }
 
     /**
-     * Creates journal based on URLs provided in its parameter.
+     * Creates copy of passed {@link WebPageJournal}-instance.
      *
-     * @param   urlLinks
-     *          web-links.
+     * @param   original
+     *          instance to copy content from.
+     *
+     * @return  reference to new identical {@link WebPageJournal}-instance.
      */
-    public WebPageJournal(Iterable<String> urlLinks) {
-        requireNonNull(urlLinks);
-        eventsData = new ConcurrentLinkedQueue<>();
-        urlLinks.forEach(this::registerVisit);
+    public static WebPageJournal copyOf(WebPageJournal original) {
+        requireNonNull(original);
+        WebPageJournal copy = new WebPageJournal();
+        copy.eventsData.addAll(original.eventsData);
+        return copy;
     }
 
-    public WebPageJournal(WebPageJournal originalJournal) {
-        requireNonNull(originalJournal);
-        this.eventsData = new ConcurrentLinkedQueue<>();
-        this.eventsData.addAll(originalJournal.eventsData);
+    /**
+     * Creates {@link WebPageJournal}-instance
+     * based on provided URL-links
+     *
+     * @param   urlLinks
+     *          url-links.
+     *
+     * @return  reference to new {@link WebPageJournal}-instance.
+     */
+    public static WebPageJournal byLinks(Iterable<String> urlLinks) {
+        requireNonNull(urlLinks);
+        WebPageJournal instance = new WebPageJournal();
+        urlLinks.forEach(instance::registerVisit);
+        return instance;
     }
 
     /** 
