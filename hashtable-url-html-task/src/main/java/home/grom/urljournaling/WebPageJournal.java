@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Stream;
 
@@ -15,57 +14,74 @@ import static home.grom.utils.ValidationUtils.*;
 
 /**
  * Consists of web-journal represented as a {@link ConcurrentLinkedQueue} of
- * {@link Visit}-instances and methods manipulating its state (i.e. creating and reading).
+ * {@link VisitEvent}-instances and methods manipulating its state (i.e. creating and reading).
  *
  * @see     ConcurrentLinkedQueue
- * @see     Visit
+ * @see     VisitEvent
  *
  * @author  <a href="mailto:gromoff97@mail.ru">Anton Gromov</a>
  */
-public class WebPageJournal {
+public final class WebPageJournal {
 
-    /** The queue with visits. */
-    private ConcurrentLinkedQueue<Visit> journalData;
+    /** The queue with visit events. */
+    private final ConcurrentLinkedQueue<VisitEvent> eventsData;
 
     /** Sets limit of timeout while connecting to URL. */
     private static final int JSOUP_TIMEOUT = 20_000;
 
+    private WebPageJournal() {
+        eventsData = new ConcurrentLinkedQueue<>();
+    }
+
     /** Creates empty journal. */
-    public WebPageJournal() {
-        this.journalData = new ConcurrentLinkedQueue<>();
+    public static WebPageJournal empty() {
+        return new WebPageJournal();
     }
 
     /**
-     * Creates journal based on URLs provided in its parameter.
+     * Creates copy of passed {@link WebPageJournal}-instance.
      *
-     * @param   urlLinks
-     *          web-links.
+     * @param   original
+     *          instance to copy content from.
+     *
+     * @return  reference to new identical {@link WebPageJournal}-instance.
      */
-    public WebPageJournal(Iterable<String> urlLinks) {
-        requireNonNull(urlLinks);
-        this.journalData = new ConcurrentLinkedQueue<>();
-        urlLinks.forEach(this::registerVisit);
+    public static WebPageJournal copyOf(WebPageJournal original) {
+        requireNonNull(original);
+        WebPageJournal copy = new WebPageJournal();
+        copy.eventsData.addAll(original.eventsData);
+        return copy;
     }
 
-    public WebPageJournal(WebPageJournal originalJournal) {
-        requireNonNull(originalJournal);
-        this.journalData = new ConcurrentLinkedQueue<>();
-        this.journalData.addAll(originalJournal.journalData);
+    /**
+     * Creates {@link WebPageJournal}-instance
+     * based on provided URL-links
+     *
+     * @param   urlLinks
+     *          url-links.
+     *
+     * @return  reference to new {@link WebPageJournal}-instance.
+     */
+    public static WebPageJournal byLinks(Iterable<String> urlLinks) {
+        requireNonNull(urlLinks);
+        WebPageJournal instance = new WebPageJournal();
+        urlLinks.forEach(instance::registerVisit);
+        return instance;
     }
 
     /** 
-     * Gets HTML-content from entered URL automatically and creates new entry in journal.
+     * Gets HTML-content from entered URL automatically and creates new {@link VisitEvent} in journal.
      *
      * @param   newURL
      *          contains URL of some web-page.
      *
-     * @return  {@code true} if adding entry to journal successfully finished,
+     * @return  {@code true} if adding event to journal successfully finished,
      *          otherwise {@code false}.
      *
      * @throws  IllegalArgumentException
      *          if URL-argument is invalid.
      */
-    public final boolean registerVisit(String newURL) {
+    public boolean registerVisit(String newURL) {
         requireValidURL(newURL);
 
         Document newDoc;
@@ -76,12 +92,13 @@ public class WebPageJournal {
             return false;
         }
 
-        this.journalData.add(new Visit(newURL, newDoc.outerHtml(), ZonedDateTime.now()));
-        return true;
+        VisitEvent visitEvent = new VisitEvent(newURL, newDoc.outerHtml(), ZonedDateTime.now());
+        return eventsData.add(visitEvent);
     }
 
     /**
-     * Gets both HTML-content and URL from its parameters. Then it creates new entry in journal.
+     * Gets both HTML-content and URL from its parameters.
+     * Then it creates new {@link VisitEvent}-instance in journal.
      *
      * @param   newURL
      *          contains URL of some web-page.
@@ -89,7 +106,7 @@ public class WebPageJournal {
      * @param   htmlContent
      *          contains HTML-page of URL-parameter.
      *
-     * @return  {@code true} if adding entry to journal successfully finished,
+     * @return  {@code true} if adding event to journal successfully finished,
      *          otherwise {@code false}.
      *
      * @throws  IllegalArgumentException
@@ -98,30 +115,30 @@ public class WebPageJournal {
     public boolean registerVisit(String newURL, String htmlContent) {
         requireValidURL(newURL);
         requireNonBlank(htmlContent, "Non-blank HTML content is required.");
-        this.journalData.add(new Visit(newURL, Jsoup.parse(htmlContent).outerHtml(), ZonedDateTime.now()));
-        return true;
+        VisitEvent visitEvent = new VisitEvent(newURL, Jsoup.parse(htmlContent).outerHtml(), ZonedDateTime.now());
+        return eventsData.add(visitEvent);
     }
 
     /**
-     * @return the unmodifiable set of URL from journal
+     * @return the {@link Stream} of {@link VisitEvent}-instances.
      */
-    public Stream<Visit> visits() {
-        return this.journalData.stream();
+    public Stream<VisitEvent> visits() {
+        return eventsData.stream();
     }
 
     /**
      * @return the size of journal.
      */
-    public int getSize() {
-        return this.journalData.size();
+    public int size() {
+        return eventsData.size();
     }
 
     /**
-     * @return  {@code true} if journal doesn't contain any entry,
+     * @return  {@code true} if journal doesn't contain any events,
      *          otherwise {@code false}.
      */
     public boolean isEmpty() {
-        return 0 == getSize();
+        return 0 == size();
     }
 
     @Override
@@ -131,7 +148,9 @@ public class WebPageJournal {
         }
 
         if (that instanceof WebPageJournal) {
-            return Arrays.equals(this.journalData.toArray(), ((WebPageJournal) that).journalData.toArray());
+            Object[] thisArray = this.eventsData.toArray();
+            Object[] thatArray = ((WebPageJournal) that).eventsData.toArray();
+            return Arrays.equals(thisArray, thatArray);
         }
 
         return false;
@@ -139,18 +158,22 @@ public class WebPageJournal {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.journalData.toArray());
+        return Objects.hash(eventsData.toArray());
     }
 
-    public static final class Visit {
+    public static final class VisitEvent {
+
         private final String url;
         private final String content;
         private final ZonedDateTime date;
 
-        private Visit(String url, String content, ZonedDateTime date) {
+        private final int hash;
+
+        private VisitEvent(String url, String content, ZonedDateTime date) {
             this.url = requireNonBlank(url);
             this.content = requireNonBlank(content);
             this.date = requireNonNull(date);
+            this.hash = Objects.hash(url, content, date);
         }
 
         public String getUrl() {
@@ -171,8 +194,8 @@ public class WebPageJournal {
                 return true;
             }
 
-            if (that instanceof Visit) {
-                Visit other = (Visit) that;
+            if (that instanceof VisitEvent) {
+                VisitEvent other = (VisitEvent) that;
                 return this.url.equals(other.url) &&
                         this.content.equals(other.content) &&
                         this.date.equals(other.date);
@@ -184,7 +207,7 @@ public class WebPageJournal {
 
         @Override
         public int hashCode() {
-            return Objects.hash(url, content, date);
+            return hash;
         }
     }
 }

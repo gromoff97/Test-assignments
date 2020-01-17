@@ -10,18 +10,18 @@ public class JournalManagingTest {
     @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Nn]ull.*$")
     public void throwsExceptionIfTriesToCreateJournalInstanceWithNullURLSet() {
         Iterable<String> nullRefIterable = null;
-        new WebPageJournal(nullRefIterable);
+        WebPageJournal.byLinks(nullRefIterable);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Nn]ull.*$")
     public void throwsExceptionIfTriesToCopyJournalWithNullInstance() {
         WebPageJournal nullRefJournal = null;
-        new WebPageJournal(nullRefJournal);
+        WebPageJournal.copyOf(nullRefJournal);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Vv]alid.*$")
     public void throwsExceptionIfTriesToRegisterNulledURL() {
-        WebPageJournal testJournal = new WebPageJournal();
+        WebPageJournal testJournal = WebPageJournal.empty();
         testJournal.registerVisit(null);
     }
 
@@ -37,7 +37,7 @@ public class JournalManagingTest {
     @Test(dataProvider = "BlankContent", expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Bb]lank.*$")
     public void throwsExceptionIfTriesToRegisterValidURLWithBlankHTML(String blankString) {
         String validURL = "https://grafana.com/";
-        WebPageJournal testJournal = new WebPageJournal();
+        WebPageJournal testJournal = WebPageJournal.empty();
         testJournal.registerVisit(validURL, blankString);
     }
 
@@ -53,13 +53,13 @@ public class JournalManagingTest {
 
     @Test(dataProvider = "InvalidURLs", expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "^.*[Vv]alid.*$")
     public void throwsExceptionIfTriesToRegisterInvalidURL( String url ) {
-        WebPageJournal testJournal = new WebPageJournal();
+        WebPageJournal testJournal = WebPageJournal.empty();
         testJournal.registerVisit(url);
     }
 
     @Test
     public void journalAfterRegisteringVisitIsNotEmpty() {
-        WebPageJournal testJournal = new WebPageJournal();
+        WebPageJournal testJournal = WebPageJournal.empty();
         Assert.assertTrue(testJournal.isEmpty());
         testJournal.registerVisit("https://stackoverflow.com/");
         Assert.assertFalse(testJournal.isEmpty());
@@ -68,11 +68,11 @@ public class JournalManagingTest {
     @Test
     public void HTMLContentForURLAfterRegisteringVisitIsNotBlank() {
         String url = "https://www.google.com/";
-        WebPageJournal testJournal = new WebPageJournal();
+        WebPageJournal testJournal = WebPageJournal.empty();
         testJournal.registerVisit(url);
 
         boolean visitsWithBlankContentExists = testJournal.visits()
-                .map(WebPageJournal.Visit::getContent)
+                .map(WebPageJournal.VisitEvent::getContent)
                 .anyMatch(ValidationUtils::isBlank);
 
         Assert.assertFalse(visitsWithBlankContentExists);
@@ -80,23 +80,23 @@ public class JournalManagingTest {
 
     @Test
     public void journalSizeAfterRegisteringIsCorrect() {
-        WebPageJournal testJournal = new WebPageJournal();
-        Assert.assertEquals(testJournal.getSize(), 0);
+        WebPageJournal testJournal = WebPageJournal.empty();
+        Assert.assertEquals(testJournal.size(), 0);
 
         testJournal.registerVisit("https://habr.com/");
-        Assert.assertEquals(testJournal.getSize(), 1);
+        Assert.assertEquals(testJournal.size(), 1);
 
         testJournal.registerVisit("https://yandex.ru/");
-        Assert.assertEquals(testJournal.getSize(), 2);
+        Assert.assertEquals(testJournal.size(), 2);
     }
 
     @Test
     public void journalAfterRegisteringTheSameURLHasDuplicates() {
         String url = "https://yandex.ru/";
-        WebPageJournal testJournal = new WebPageJournal();
+        WebPageJournal testJournal = WebPageJournal.empty();
         testJournal.registerVisit(url);
         testJournal.registerVisit(url);
-        Assert.assertEquals(testJournal.getSize(), 2);
+        Assert.assertEquals(testJournal.size(), 2);
     }
 
     @Test
@@ -104,8 +104,8 @@ public class JournalManagingTest {
         String url = "https://se.ifmo.ru/~korg/";
 
         // Make sure two empty journals are equal.
-        WebPageJournal firstTestJournal = new WebPageJournal();
-        WebPageJournal secondTestJournal = new WebPageJournal();
+        WebPageJournal firstTestJournal = WebPageJournal.empty();
+        WebPageJournal secondTestJournal = WebPageJournal.empty();
         Assert.assertEquals(firstTestJournal, secondTestJournal);
 
         // Make sure two journals with same url but different creation time are not equal.
@@ -115,7 +115,7 @@ public class JournalManagingTest {
         Assert.assertNotEquals(firstTestJournal, secondTestJournal);
 
         // Make sure two identical journals are equal.
-        WebPageJournal thirdTestJournal = new WebPageJournal(secondTestJournal);
+        WebPageJournal thirdTestJournal = WebPageJournal.copyOf(secondTestJournal);
         Assert.assertEquals(secondTestJournal, thirdTestJournal);
     }
 
@@ -124,8 +124,8 @@ public class JournalManagingTest {
         String url = "https://www.york.ac.uk/teaching/cws/wws/webpage1.html";
 
         // Make sure two empty journals have the same hashcode-values.
-        WebPageJournal firstTestJournal = new WebPageJournal();
-        WebPageJournal secondTestJournal = new WebPageJournal();
+        WebPageJournal firstTestJournal = WebPageJournal.empty();
+        WebPageJournal secondTestJournal = WebPageJournal.empty();
         Assert.assertEquals(firstTestJournal.hashCode(), secondTestJournal.hashCode());
 
         // Make sure two journals with same url but different creation time have different hashcode-values.
@@ -135,7 +135,7 @@ public class JournalManagingTest {
         Assert.assertNotEquals(firstTestJournal.hashCode(), secondTestJournal.hashCode());
 
         // Make sure two identical journals have the same hashcode-values.
-        WebPageJournal thirdTestJournal = new WebPageJournal(secondTestJournal);
+        WebPageJournal thirdTestJournal = WebPageJournal.copyOf(secondTestJournal);
         Assert.assertEquals(secondTestJournal.hashCode(), thirdTestJournal.hashCode());
     }
 
