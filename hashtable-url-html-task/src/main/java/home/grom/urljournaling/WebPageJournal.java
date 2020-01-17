@@ -24,7 +24,7 @@ import static home.grom.utils.ValidationUtils.*;
 public class WebPageJournal {
 
     /** The queue with visits. */
-    private ConcurrentLinkedQueue<VisitEvent> eventsData;
+    private final ConcurrentLinkedQueue<VisitEvent> eventsData;
 
     /** Sets limit of timeout while connecting to URL. */
     private static final int JSOUP_TIMEOUT = 20_000;
