@@ -33,8 +33,8 @@ public final class WebPageJournal {
         eventsData = new ConcurrentLinkedQueue<>();
     }
 
-    /** Creates empty journal. */
-    public static WebPageJournal empty() {
+    /** Creates newInstance journal. */
+    public static WebPageJournal newInstance() {
         return new WebPageJournal();
     }
 
