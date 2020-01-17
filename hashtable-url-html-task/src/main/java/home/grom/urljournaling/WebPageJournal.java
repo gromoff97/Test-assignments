@@ -148,7 +148,9 @@ public final class WebPageJournal {
         }
 
         if (that instanceof WebPageJournal) {
-            return Arrays.equals(this.eventsData.toArray(), ((WebPageJournal) that).eventsData.toArray());
+            Object[] thisArray = this.eventsData.toArray();
+            Object[] thatArray = ((WebPageJournal) that).eventsData.toArray();
+            return Arrays.equals(thisArray, thatArray);
         }
 
         return false;
