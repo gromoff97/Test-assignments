@@ -21,7 +21,7 @@ import static home.grom.utils.ValidationUtils.*;
  *
  * @author  <a href="mailto:gromoff97@mail.ru">Anton Gromov</a>
  */
-public class WebPageJournal {
+public final class WebPageJournal {
 
     /** The queue with visits. */
     private final ConcurrentLinkedQueue<VisitEvent> eventsData;
