@@ -81,7 +81,7 @@ public final class WebPageJournal {
      * @throws  IllegalArgumentException
      *          if URL-argument is invalid.
      */
-    public final boolean registerVisit(String newURL) {
+    public boolean registerVisit(String newURL) {
         requireValidURL(newURL);
 
         Document newDoc;
