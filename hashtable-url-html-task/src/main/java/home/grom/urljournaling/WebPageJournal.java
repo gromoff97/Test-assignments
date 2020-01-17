@@ -164,10 +164,13 @@ public final class WebPageJournal {
         private final String content;
         private final ZonedDateTime date;
 
+        private final int hash;
+
         private VisitEvent(String url, String content, ZonedDateTime date) {
             this.url = requireNonBlank(url);
             this.content = requireNonBlank(content);
             this.date = requireNonNull(date);
+            this.hash = Objects.hash(url, content, date);
         }
 
         public String getUrl() {
@@ -201,7 +204,7 @@ public final class WebPageJournal {
 
         @Override
         public int hashCode() {
-            return Objects.hash(url, content, date);
+            return hash;
         }
     }
 }
