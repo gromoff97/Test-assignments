@@ -128,7 +128,7 @@ public final class WebPageJournal {
     /**
      * @return the size of journal.
      */
-    public int getSize() {
+    public int size() {
         return eventsData.size();
     }
 
@@ -137,7 +137,7 @@ public final class WebPageJournal {
      *          otherwise {@code false}.
      */
     public boolean isEmpty() {
-        return 0 == getSize();
+        return 0 == size();
     }
 
     @Override

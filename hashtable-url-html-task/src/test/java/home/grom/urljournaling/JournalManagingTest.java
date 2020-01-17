@@ -81,13 +81,13 @@ public class JournalManagingTest {
     @Test
     public void journalSizeAfterRegisteringIsCorrect() {
         WebPageJournal testJournal = WebPageJournal.empty();
-        Assert.assertEquals(testJournal.getSize(), 0);
+        Assert.assertEquals(testJournal.size(), 0);
 
         testJournal.registerVisit("https://habr.com/");
-        Assert.assertEquals(testJournal.getSize(), 1);
+        Assert.assertEquals(testJournal.size(), 1);
 
         testJournal.registerVisit("https://yandex.ru/");
-        Assert.assertEquals(testJournal.getSize(), 2);
+        Assert.assertEquals(testJournal.size(), 2);
     }
 
     @Test
@@ -96,7 +96,7 @@ public class JournalManagingTest {
         WebPageJournal testJournal = WebPageJournal.empty();
         testJournal.registerVisit(url);
         testJournal.registerVisit(url);
-        Assert.assertEquals(testJournal.getSize(), 2);
+        Assert.assertEquals(testJournal.size(), 2);
     }
 
     @Test
