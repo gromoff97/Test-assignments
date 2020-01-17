@@ -23,7 +23,7 @@ import static home.grom.utils.ValidationUtils.*;
  */
 public final class WebPageJournal {
 
-    /** The queue with visits. */
+    /** The queue with visit events. */
     private final ConcurrentLinkedQueue<VisitEvent> eventsData;
 
     /** Sets limit of timeout while connecting to URL. */
@@ -70,12 +70,12 @@ public final class WebPageJournal {
     }
 
     /** 
-     * Gets HTML-content from entered URL automatically and creates new entry in journal.
+     * Gets HTML-content from entered URL automatically and creates new {@link VisitEvent} in journal.
      *
      * @param   newURL
      *          contains URL of some web-page.
      *
-     * @return  {@code true} if adding entry to journal successfully finished,
+     * @return  {@code true} if adding event to journal successfully finished,
      *          otherwise {@code false}.
      *
      * @throws  IllegalArgumentException
@@ -97,7 +97,8 @@ public final class WebPageJournal {
     }
 
     /**
-     * Gets both HTML-content and URL from its parameters. Then it creates new entry in journal.
+     * Gets both HTML-content and URL from its parameters.
+     * Then it creates new {@link VisitEvent}-instance in journal.
      *
      * @param   newURL
      *          contains URL of some web-page.
@@ -105,7 +106,7 @@ public final class WebPageJournal {
      * @param   htmlContent
      *          contains HTML-page of URL-parameter.
      *
-     * @return  {@code true} if adding entry to journal successfully finished,
+     * @return  {@code true} if adding event to journal successfully finished,
      *          otherwise {@code false}.
      *
      * @throws  IllegalArgumentException
@@ -119,7 +120,7 @@ public final class WebPageJournal {
     }
 
     /**
-     * @return the unmodifiable set of URL from journal
+     * @return the {@link Stream} of {@link VisitEvent}-instances.
      */
     public Stream<VisitEvent> visits() {
         return eventsData.stream();
@@ -133,7 +134,7 @@ public final class WebPageJournal {
     }
 
     /**
-     * @return  {@code true} if journal doesn't contain any entry,
+     * @return  {@code true} if journal doesn't contain any events,
      *          otherwise {@code false}.
      */
     public boolean isEmpty() {
