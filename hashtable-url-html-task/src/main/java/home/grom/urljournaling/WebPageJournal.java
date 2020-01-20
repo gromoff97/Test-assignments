@@ -10,7 +10,9 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Stream;
 
-import static home.grom.utils.ValidationUtils.*;
+import static home.grom.utils.ValidationUtils.requireNonBlank;
+import static home.grom.utils.ValidationUtils.requireNonNull;
+import static home.grom.utils.ValidationUtils.requireValidURL;
 
 /**
  * Consists of web-journal represented as a {@link ConcurrentLinkedQueue} of
