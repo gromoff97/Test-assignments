@@ -54,7 +54,7 @@ public final class ValidationUtils {
      * @see java.util.Objects#requireNonNull(Object, String)
      */
     public static String requireNonBlank(String str, String exceptionMessage) {
-        if (str == null || str.trim().isEmpty())
+        if (isBlank(str))
             throw new IllegalArgumentException(exceptionMessage);
         return str;
     }
